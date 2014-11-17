@@ -1,0 +1,1 @@
+Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [Vueify](https://github.com/vuejs/vueify) or [vue-loader](https://github.com/vuejs/vue-loader)).
