@@ -2,6 +2,8 @@
 
 Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [Vueify](https://github.com/vuejs/vueify) or [vue-multi-loader](https://github.com/Q42/vue-multi-loader)).
 
+![screenshot](http://vuejs.org/images/vueify.png)
+
 ### Install
 
 - Via Package Control: search for `Vue Syntax Highlight`.
