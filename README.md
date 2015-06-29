@@ -1,6 +1,6 @@
 # Vue Syntax Highlight
 
-Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [Vueify](https://github.com/vuejs/vueify) or [vue-multi-loader](https://github.com/Q42/vue-multi-loader)).
+Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [Vueify](https://github.com/vuejs/vueify) or [vue-loader](https://github.com/vuejs/vue-loader)).
 
 ![screenshot](http://vuejs.org/images/vueify.png)
 
