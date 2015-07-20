@@ -1223,7 +1223,7 @@
 		</dict>
 	</dict>
 	<key>scopeName</key>
-	<string>text.html.basic</string>
+	<string>text.html.vue</string>
 	<key>uuid</key>
 	<string>2627aff3-9590-433e-8d6a-2e2603de23f8</string>
 </dict>

@@ -1,6 +1,6 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 name: Vue Component
-scopeName: text.html.basic
+scopeName: text.html.vue
 fileTypes: [vue]
 uuid: 2627aff3-9590-433e-8d6a-2e2603de23f8
 
