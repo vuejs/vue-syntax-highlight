@@ -1,7 +1,7 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 ---
 name: Vue Component
-scopeName: text.html.basic
+scopeName: text.html.vue
 fileTypes: [vue]
 uuid: 5512c10d-4cc5-434c-b8fc-53b912f55ab3
 
@@ -73,7 +73,7 @@ patterns:
   - begin: (>)
     beginCaptures:
       '1': {name: punctuation.definition.tag.end.html}
-    end: (?=</(?i:style))
+    end: (?=</(?i:template))
     patterns:
     - include: source.jade
 

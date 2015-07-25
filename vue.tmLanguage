@@ -250,7 +250,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>(?=&lt;/(?i:style))</string>
+					<string>(?=&lt;/(?i:template))</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -1011,7 +1011,7 @@
 		</dict>
 	</dict>
 	<key>scopeName</key>
-	<string>text.html.basic</string>
+	<string>text.html.vue</string>
 	<key>uuid</key>
 	<string>5512c10d-4cc5-434c-b8fc-53b912f55ab3</string>
 </dict>
