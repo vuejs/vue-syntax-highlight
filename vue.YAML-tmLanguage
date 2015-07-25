@@ -1,8 +1,9 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
+---
 name: Vue Component
 scopeName: text.html.basic
 fileTypes: [vue]
-uuid: 2627aff3-9590-433e-8d6a-2e2603de23f8
+uuid: 5512c10d-4cc5-434c-b8fc-53b912f55ab3
 
 patterns:
 - name: meta.tag.any.html
@@ -39,7 +40,6 @@ patterns:
   patterns:
   - name: invalid.illegal.bad-comments-or-CDATA.html
     match: --
-  - include: '#embedded-code'
 
 - name: meta.tag.sgml.html
   begin: <!
@@ -61,109 +61,74 @@ patterns:
   - name: invalid.illegal.bad-comments-or-CDATA.html
     match: (\s*)(?!--|>)\S(\s*)
 
-- include: '#embedded-code'
-
 - name: source.stylus.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="stylus")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.style.html}
     '3': {name: punctuation.definition.tag.html}
   patterns:
   - include: '#tag-stuff'
   - begin: (>)
     beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
     - include: source.stylus
 
 - name: source.sass.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:sass)")
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:s(a|c)ss)")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.style.html}
     '3': {name: punctuation.definition.tag.html}
   patterns:
   - include: '#tag-stuff'
   - begin: (>)
     beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
     - include: source.sass
-
-- name: source.sass.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:scss)")
-  end: (</)((?i:style))(>)(?:\s*\n)?
-  captures:
-    '1': {name: punctuation.definition.tag.html}
-    '2': {name: entity.name.tag.style.html}
-    '3': {name: punctuation.definition.tag.html}
-  patterns:
-  - include: '#tag-stuff'
-  - begin: (>)
-    beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
-    end: (?=</(?i:style))
-    patterns:
-    - include: source.scss
 
 - name: source.less.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="less")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.style.html}
     '3': {name: punctuation.definition.tag.html}
   patterns:
   - include: '#tag-stuff'
   - begin: (>)
     beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
     - include: source.less
 
 - name: source.css.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?![^>]*/>|lang=".*")
+  begin: (?:^\s+)?(<)((?i:style))\b(?![^>]*/>)
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.style.html}
     '3': {name: punctuation.definition.tag.html}
   patterns:
   - include: '#tag-stuff'
   - begin: (>)
     beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
-    - include: '#embedded-code'
     - include: source.css
-
-- name: source.jade.embedded.html
-  begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="jade")
-  end: (</)((?i:template))(>)(?:\s*\n)?
-  captures:
-    '1': {name: punctuation.definition.tag.html}
-    '2': {name: entity.name.tag.style.html}
-    '3': {name: punctuation.definition.tag.html}
-  patterns:
-  - include: '#tag-stuff'
-  - begin: (>)
-    beginCaptures:
-      '1': {name: punctuation.definition.tag.html}
-    end: (?=</(?i:style))
-    patterns:
-    - include: source.jade
 
 - name: source.coffee.embedded.html
   begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*lang="coffee")
   beginCaptures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}
   end: (?<=</(script|SCRIPT))(>)(?:\s*\n)?
   endCaptures:
@@ -173,15 +138,15 @@ patterns:
   - begin: (?<!</(?:script|SCRIPT))(>)
     end: (</)((?i:script))
     captures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.begin.html}
       '2': {name: entity.name.tag.script.html}
     patterns:
     - include: source.coffee
 
 - name: source.js.embedded.html
-  begin: (?:^\s+)?(<)((?i:script))\b(?![^>]*/>|lang=".*")
+  begin: (?:^\s+)?(<)((?i:script))\b(?![^>]*/>)
   beginCaptures:
-    '1': {name: punctuation.definition.tag.html}
+    '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}
   end: (?<=</(script|SCRIPT))(>)(?:\s*\n)?
   endCaptures:
@@ -191,7 +156,7 @@ patterns:
   - begin: (?<!</(?:script|SCRIPT))(>)
     end: (</)((?i:script))
     captures:
-      '1': {name: punctuation.definition.tag.html}
+      '1': {name: punctuation.definition.tag.begin.html}
       '2': {name: entity.name.tag.script.html}
     patterns:
     - name: comment.line.double-slash.js
@@ -203,7 +168,6 @@ patterns:
       end: \*/|(?=</script)
       captures:
         '0': {name: punctuation.definition.comment.js}
-    - include: '#php'
     - include: source.js
 
 - name: meta.tag.structure.any.html
@@ -259,11 +223,6 @@ patterns:
   match: <
 
 repository:
-  embedded-code:
-    patterns:
-    - include: '#ruby'
-    - include: '#php'
-    - include: '#python'
 
   entities:
     patterns:
@@ -275,49 +234,6 @@ repository:
     - name: invalid.illegal.bad-ampersand.html
       match: '&'
 
-  php:
-    begin: (?=(^\s*)?<\?)
-    end: (?!(^\s*)?<\?)
-    patterns:
-    - include: source.php
-
-  python:
-    name: source.python.embedded.html
-    begin: (?:^\s*)<\?python(?!.*\?>)
-    end: \?>(?:\s*$\n)?
-    patterns:
-    - include: source.python
-
-  ruby:
-    patterns:
-    - name: comment.block.erb
-      begin: <%+#
-      end: '%>'
-      captures:
-        '0': {name: punctuation.definition.comment.erb}
-    - name: source.ruby.embedded.html
-      begin: <%+(?!>)=?
-      end: -?%>
-      captures:
-        '0': {name: punctuation.section.embedded.ruby}
-      patterns:
-      - name: comment.line.number-sign.ruby
-        match: (#).*?(?=-?%>)
-        captures:
-          '1': {name: punctuation.definition.comment.ruby}
-      - include: source.ruby
-    - name: source.ruby.nitro.embedded.html
-      begin: <\?r(?!>)=?
-      end: -?\?>
-      captures:
-        '0': {name: punctuation.section.embedded.ruby.nitro}
-      patterns:
-      - name: comment.line.number-sign.ruby.nitro
-        match: (#).*?(?=-?\?>)
-        captures:
-          '1': {name: punctuation.definition.comment.ruby.nitro}
-      - include: source.ruby
-
   string-double-quoted:
     name: string.quoted.double.html
     begin: '"'
@@ -327,19 +243,17 @@ repository:
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#embedded-code'
     - include: '#entities'
 
   string-single-quoted:
     name: string.quoted.single.html
-    begin: "'"
+    begin: ''''
     beginCaptures:
       '0': {name: punctuation.definition.string.begin.html}
-    end: "'"
+    end: ''''
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#embedded-code'
     - include: '#entities'
 
   tag-generic-attribute:
@@ -363,18 +277,16 @@ repository:
       endCaptures:
         '0': {name: punctuation.definition.string.end.html}
       patterns:
-      - include: '#embedded-code'
       - include: '#entities'
     - name: string.quoted.single.html
       contentName: meta.toc-list.id.html
-      begin: "'"
+      begin: ''''
       beginCaptures:
         '0': {name: punctuation.definition.string.begin.html}
-      end: "'"
+      end: ''''
       endCaptures:
         '0': {name: punctuation.definition.string.end.html}
       patterns:
-      - include: '#embedded-code'
       - include: '#entities'
 
   tag-stuff:
@@ -383,4 +295,23 @@ repository:
     - include: '#tag-generic-attribute'
     - include: '#string-double-quoted'
     - include: '#string-single-quoted'
-    - include: '#embedded-code'
+firstLineMatch: <!(?i:DOCTYPE)|<(?i:html)|<\?(?i:php)
+foldingStartMarker: |-
+  (?x)
+  (<(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?>
+  |<!--(?!.*--\s*>)
+  |^<!--\ \#tminclude\ (?>.*?-->)$
+  |<\?(?:php)?.*\b(if|for(each)?|while)\b.+:
+  |\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
+  |\{\s*($|\?>\s*$|//|/\*(.*\*/\s*$|(?!.*?\*/)))
+  )
+foldingStopMarker: |-
+  (?x)
+  (</(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)>
+  |^(?!.*?<!--).*?--\s*>
+  |^<!--\ end\ tminclude\ -->$
+  |<\?(?:php)?.*\bend(if|for(each)?|while)\b
+  |\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
+  |^[^{]*\}
+  )
+keyEquivalent: ^~H

@@ -6,6 +6,28 @@
 	<array>
 		<string>vue</string>
 	</array>
+	<key>firstLineMatch</key>
+	<string>&lt;!(?i:DOCTYPE)|&lt;(?i:html)|&lt;\?(?i:php)</string>
+	<key>foldingStartMarker</key>
+	<string>(?x)
+(&lt;(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?&gt;
+|&lt;!--(?!.*--\s*&gt;)
+|^&lt;!--\ \#tminclude\ (?&gt;.*?--&gt;)$
+|&lt;\?(?:php)?.*\b(if|for(each)?|while)\b.+:
+|\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
+|\{\s*($|\?&gt;\s*$|//|/\*(.*\*/\s*$|(?!.*?\*/)))
+)</string>
+	<key>foldingStopMarker</key>
+	<string>(?x)
+(&lt;/(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)&gt;
+|^(?!.*?&lt;!--).*?--\s*&gt;
+|^&lt;!--\ end\ tminclude\ --&gt;$
+|&lt;\?(?:php)?.*\bend(if|for(each)?|while)\b
+|\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
+|^[^{]*\}
+)</string>
+	<key>keyEquivalent</key>
+	<string>^~H</string>
 	<key>name</key>
 	<string>Vue Component</string>
 	<key>patterns</key>
@@ -125,10 +147,6 @@
 					<key>name</key>
 					<string>invalid.illegal.bad-comments-or-CDATA.html</string>
 				</dict>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
 			</array>
 		</dict>
 		<dict>
@@ -190,10 +208,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>include</key>
-			<string>#embedded-code</string>
-		</dict>
-		<dict>
 			<key>begin</key>
 			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="stylus")</string>
 			<key>captures</key>
@@ -201,7 +215,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -232,7 +246,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.end.html</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -249,13 +263,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="(?:sass)")</string>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="(?:s(a|c)ss)")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -286,7 +300,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.end.html</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -303,67 +317,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="(?:scss)")</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.style.html</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
-			<key>name</key>
-			<string>source.sass.embedded.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(&gt;)</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?=&lt;/(?i:style))</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.scss</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
 			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="less")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -394,7 +354,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.end.html</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -411,13 +371,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?![^&gt;]*/&gt;|lang=".*")</string>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?![^&gt;]*/&gt;)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -448,74 +408,16 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.end.html</string>
 						</dict>
 					</dict>
 					<key>end</key>
 					<string>(?=&lt;/(?i:style))</string>
 					<key>patterns</key>
 					<array>
-						<dict>
-							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
 						<dict>
 							<key>include</key>
 							<string>source.css</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:template))\b(?=[^&gt;]*lang="jade")</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.style.html</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(&lt;/)((?i:template))(&gt;)(?:\s*\n)?</string>
-			<key>name</key>
-			<string>source.jade.embedded.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(&gt;)</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?=&lt;/(?i:style))</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.jade</string>
 						</dict>
 					</array>
 				</dict>
@@ -529,7 +431,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -563,7 +465,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.begin.html</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -585,13 +487,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:script))\b(?![^&gt;]*/&gt;|lang=".*")</string>
+			<string>(?:^\s+)?(&lt;)((?i:script))\b(?![^&gt;]*/&gt;)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
+					<string>punctuation.definition.tag.begin.html</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -625,7 +527,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.tag.html</string>
+							<string>punctuation.definition.tag.begin.html</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -666,10 +568,6 @@
 							<string>\*/|(?=&lt;/script)</string>
 							<key>name</key>
 							<string>comment.block.js</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#php</string>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -842,24 +740,6 @@
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>embedded-code</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#php</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#python</string>
-				</dict>
-			</array>
-		</dict>
 		<key>entities</key>
 		<dict>
 			<key>patterns</key>
@@ -891,132 +771,6 @@
 				</dict>
 			</array>
 		</dict>
-		<key>php</key>
-		<dict>
-			<key>begin</key>
-			<string>(?=(^\s*)?&lt;\?)</string>
-			<key>end</key>
-			<string>(?!(^\s*)?&lt;\?)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>source.php</string>
-				</dict>
-			</array>
-		</dict>
-		<key>python</key>
-		<dict>
-			<key>begin</key>
-			<string>(?:^\s*)&lt;\?python(?!.*\?&gt;)</string>
-			<key>end</key>
-			<string>\?&gt;(?:\s*$\n)?</string>
-			<key>name</key>
-			<string>source.python.embedded.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>source.python</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ruby</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>&lt;%+#</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.comment.erb</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>%&gt;</string>
-					<key>name</key>
-					<string>comment.block.erb</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>&lt;%+(?!&gt;)=?</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.embedded.ruby</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>-?%&gt;</string>
-					<key>name</key>
-					<string>source.ruby.embedded.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.comment.ruby</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(#).*?(?=-?%&gt;)</string>
-							<key>name</key>
-							<string>comment.line.number-sign.ruby</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>source.ruby</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>&lt;\?r(?!&gt;)=?</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.embedded.ruby.nitro</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>-?\?&gt;</string>
-					<key>name</key>
-					<string>source.ruby.nitro.embedded.html</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.comment.ruby.nitro</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(#).*?(?=-?\?&gt;)</string>
-							<key>name</key>
-							<string>comment.line.number-sign.ruby.nitro</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>source.ruby</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
 		<key>string-double-quoted</key>
 		<dict>
 			<key>begin</key>
@@ -1043,10 +797,6 @@
 			<string>string.quoted.double.html</string>
 			<key>patterns</key>
 			<array>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
 				<dict>
 					<key>include</key>
 					<string>#entities</string>
@@ -1079,10 +829,6 @@
 			<string>string.quoted.single.html</string>
 			<key>patterns</key>
 			<array>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
 				<dict>
 					<key>include</key>
 					<string>#entities</string>
@@ -1148,10 +894,6 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
-						<dict>
-							<key>include</key>
 							<string>#entities</string>
 						</dict>
 					</array>
@@ -1185,10 +927,6 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>#embedded-code</string>
-						</dict>
-						<dict>
-							<key>include</key>
 							<string>#entities</string>
 						</dict>
 					</array>
@@ -1215,16 +953,12 @@
 					<key>include</key>
 					<string>#string-single-quoted</string>
 				</dict>
-				<dict>
-					<key>include</key>
-					<string>#embedded-code</string>
-				</dict>
 			</array>
 		</dict>
 	</dict>
 	<key>scopeName</key>
 	<string>text.html.basic</string>
 	<key>uuid</key>
-	<string>2627aff3-9590-433e-8d6a-2e2603de23f8</string>
+	<string>5512c10d-4cc5-434c-b8fc-53b912f55ab3</string>
 </dict>
 </plist>
