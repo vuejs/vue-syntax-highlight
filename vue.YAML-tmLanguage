@@ -61,7 +61,7 @@ patterns:
   - name: invalid.illegal.bad-comments-or-CDATA.html
     match: (\s*)(?!--|>)\S(\s*)
 
-- name: source.jade.embedded.html
+- name: text.jade.embedded.html
   begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="jade")
   end: (</)((?i:template))(>)(?:\s*\n)?
   captures:
@@ -75,7 +75,7 @@ patterns:
       '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:template))
     patterns:
-    - include: source.jade
+    - include: text.jade
 
 - name: source.stylus.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="stylus")

@@ -231,7 +231,7 @@
 			<key>end</key>
 			<string>(&lt;/)((?i:template))(&gt;)(?:\s*\n)?</string>
 			<key>name</key>
-			<string>source.jade.embedded.html</string>
+			<string>text.jade.embedded.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -255,7 +255,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>source.jade</string>
+							<string>text.jade</string>
 						</dict>
 					</array>
 				</dict>
