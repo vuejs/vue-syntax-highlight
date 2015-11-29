@@ -2,7 +2,7 @@
 
 Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [vue-loader](https://github.com/vuejs/vue-loader) or [vueify](https://github.com/vuejs/vueify)).
 
-![screenshot](http://vuejs.org/images/vue-component-with-pre-processors.png)
+![screenshot](https://cloud.githubusercontent.com/assets/499550/11458853/99ed23aa-9696-11e5-9bf6-43c706487aee.png)
 
 ### Install
 
