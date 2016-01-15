@@ -62,7 +62,7 @@ patterns:
     match: (\s*)(?!--|>)\S(\s*)
 
 - name: text.jade.embedded.html
-  begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="jade")
+  begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="jade(?:\?[^"]*)?")
   end: (</)((?i:template))(>)(?:\s*\n)?
   captures:
     '1': {name: punctuation.definition.tag.begin.html}
@@ -78,7 +78,7 @@ patterns:
     - include: text.jade
 
 - name: source.vue-stylus.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="stylus")
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="stylus(?:\?[^"]*)?")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
     '1': {name: punctuation.definition.tag.begin.html}
@@ -94,7 +94,7 @@ patterns:
     - include: source.stylus
 
 - name: source.sass.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:s(a|c)ss)")
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:s(a|c)ss)(?:\?[^"]*)?")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
     '1': {name: punctuation.definition.tag.begin.html}
@@ -110,7 +110,7 @@ patterns:
     - include: source.sass
 
 - name: source.less.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="less")
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="less(?:\?[^"]*)?")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
     '1': {name: punctuation.definition.tag.begin.html}
@@ -142,7 +142,7 @@ patterns:
     - include: source.css
 
 - name: source.coffee.embedded.html
-  begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*lang="coffee")
+  begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*lang="coffee(?:\?[^"]*)?")
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}

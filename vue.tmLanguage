@@ -209,7 +209,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:template))\b(?=[^&gt;]*lang="jade")</string>
+			<string>(?:^\s+)?(&lt;)((?i:template))\b(?=[^&gt;]*lang="jade(?:\?[^"]*)?")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -263,7 +263,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="stylus")</string>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="stylus(?:\?[^"]*)?")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -317,7 +317,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="(?:s(a|c)ss)")</string>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="(?:s(a|c)ss)(?:\?[^"]*)?")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -371,7 +371,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="less")</string>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang="less(?:\?[^"]*)?")</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -479,7 +479,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:script))\b(?=[^&gt;]*lang="coffee")</string>
+			<string>(?:^\s+)?(&lt;)((?i:script))\b(?=[^&gt;]*lang="coffee(?:\?[^"]*)?")</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
