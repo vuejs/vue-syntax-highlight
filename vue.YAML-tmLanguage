@@ -7,7 +7,7 @@ uuid: 5512c10d-4cc5-434c-b8fc-53b912f55ab3
 
 patterns:
 - name: meta.tag.any.html
-  begin: (<)([a-zA-Z0-9:]++)(?=[^>]*></\2>)
+  begin: (<)([a-zA-Z0-9:-]++)(?=[^>]*></\2>)
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.html}
@@ -220,7 +220,7 @@ patterns:
   - include: '#tag-stuff'
 
 - name: meta.tag.other.html
-  begin: (</?)([a-zA-Z0-9:]+)
+  begin: (</?)([a-zA-Z0-9:-]+)
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.other.html}
