@@ -34,7 +34,7 @@
 	<array>
 		<dict>
 			<key>begin</key>
-			<string>(&lt;)([a-zA-Z0-9:]++)(?=[^&gt;]*&gt;&lt;/\2&gt;)</string>
+			<string>(&lt;)([a-zA-Z0-9:-]++)(?=[^&gt;]*&gt;&lt;/\2&gt;)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -741,7 +741,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(&lt;/?)([a-zA-Z0-9:]+)</string>
+			<string>(&lt;/?)([a-zA-Z0-9:-]+)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
