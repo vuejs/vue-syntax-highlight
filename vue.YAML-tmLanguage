@@ -311,7 +311,6 @@ repository:
     - include: '#tag-generic-attribute'
     - include: '#string-double-quoted'
     - include: '#string-single-quoted'
-firstLineMatch: <!(?i:DOCTYPE)|<(?i:html)|<\?(?i:php)
 foldingStartMarker: |-
   (?x)
   (<(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?>

@@ -6,8 +6,6 @@
 	<array>
 		<string>vue</string>
 	</array>
-	<key>firstLineMatch</key>
-	<string>&lt;!(?i:DOCTYPE)|&lt;(?i:html)|&lt;\?(?i:php)</string>
 	<key>foldingStartMarker</key>
 	<string>(?x)
 (&lt;(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?&gt;
