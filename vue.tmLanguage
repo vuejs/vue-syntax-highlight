@@ -283,7 +283,7 @@
 			<key>end</key>
 			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
 			<key>name</key>
-			<string>source.vue-stylus.embedded.html</string>
+			<string>source.stylus.embedded.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
