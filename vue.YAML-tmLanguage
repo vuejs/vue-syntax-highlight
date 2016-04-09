@@ -240,17 +240,13 @@ patterns:
 
 repository:
 
-  string-entities:
+  entities:
     patterns:
     - name: constant.character.entity.html
       match: (&)([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+)(;)
       captures:
         '1': {name: punctuation.definition.entity.html}
         '3': {name: punctuation.definition.entity.html}
-
-  entities:
-    patterns:
-    - include: '#string-entities'
     - name: invalid.illegal.bad-ampersand.html
       match: '&'
 
@@ -263,7 +259,7 @@ repository:
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#string-entities'
+    - include: '#entities'
 
   string-single-quoted:
     name: string.quoted.single.html
@@ -274,7 +270,38 @@ repository:
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#string-entities'
+    - include: '#entities'
+
+  vue-directive:
+    name: meta.directive.vue
+    begin: (?:\b(v-)|(:|@))([a-zA-Z\-]+)(?:\:([a-zA-Z\-]+))?(?:\.([a-zA-Z\-]+))*\s*(=)
+    end: (?<='|")
+    captures:
+      '1': {name: entity.other.attribute-name.html}
+      '2': {name: punctuation.separator.key-value.html}
+      '3': {name: entity.other.attribute-name.html}
+      '4': {name: entity.other.attribute-name.html}
+      '5': {name: entity.other.attribute-name.html}
+      '6': {name: punctuation.separator.key-value.html}
+    patterns:
+    - name: source.directive.vue
+      begin: '"'
+      beginCaptures:
+        '0': {name: punctuation.definition.string.begin.html}
+      end: '"'
+      endCaptures:
+        '0': {name: punctuation.definition.string.end.html}
+      patterns:
+      - include: source.js
+    - name: source.directive.vue
+      begin: ''''
+      beginCaptures:
+        '0': {name: punctuation.definition.string.begin.html}
+      end: ''''
+      endCaptures:
+        '0': {name: punctuation.definition.string.end.html}
+      patterns:
+      - include: source.js
 
   tag-generic-attribute:
     name: entity.other.attribute-name.html
@@ -311,10 +338,12 @@ repository:
 
   tag-stuff:
     patterns:
+    - include: '#vue-directive'
     - include: '#tag-id-attribute'
     - include: '#tag-generic-attribute'
     - include: '#string-double-quoted'
     - include: '#string-single-quoted'
+
 foldingStartMarker: |-
   (?x)
   (<(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?>
@@ -324,6 +353,7 @@ foldingStartMarker: |-
   |\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
   |\{\s*($|\?>\s*$|//|/\*(.*\*/\s*$|(?!.*?\*/)))
   )
+
 foldingStopMarker: |-
   (?x)
   (</(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)>
@@ -333,4 +363,5 @@ foldingStopMarker: |-
   |\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
   |^[^{]*\}
   )
+
 keyEquivalent: ^~H
