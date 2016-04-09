@@ -240,15 +240,19 @@ patterns:
 
 repository:
 
-  entities:
+  string-entities:
     patterns:
     - name: constant.character.entity.html
       match: (&)([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+)(;)
       captures:
         '1': {name: punctuation.definition.entity.html}
         '3': {name: punctuation.definition.entity.html}
+
+  entities:
+    patterns:
     - name: invalid.illegal.bad-ampersand.html
       match: '&'
+    - include: '#string-entities'
 
   string-double-quoted:
     name: string.quoted.double.html
@@ -259,7 +263,7 @@ repository:
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#entities'
+    - include: '#string-entities'
 
   string-single-quoted:
     name: string.quoted.single.html
@@ -270,7 +274,7 @@ repository:
     endCaptures:
       '0': {name: punctuation.definition.string.end.html}
     patterns:
-    - include: '#entities'
+    - include: '#string-entities'
 
   tag-generic-attribute:
     name: entity.other.attribute-name.html
