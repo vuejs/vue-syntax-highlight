@@ -250,9 +250,9 @@ repository:
 
   entities:
     patterns:
+    - include: '#string-entities'
     - name: invalid.illegal.bad-ampersand.html
       match: '&'
-    - include: '#string-entities'
 
   string-double-quoted:
     name: string.quoted.double.html

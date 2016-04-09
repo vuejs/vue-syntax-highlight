@@ -797,14 +797,14 @@
 			<key>patterns</key>
 			<array>
 				<dict>
+					<key>include</key>
+					<string>#string-entities</string>
+				</dict>
+				<dict>
 					<key>match</key>
 					<string>&amp;</string>
 					<key>name</key>
 					<string>invalid.illegal.bad-ampersand.html</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#string-entities</string>
 				</dict>
 			</array>
 		</dict>
