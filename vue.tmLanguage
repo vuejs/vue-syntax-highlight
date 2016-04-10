@@ -31,6 +31,10 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>include</key>
+			<string>#vue-interpolations</string>
+		</dict>
+		<dict>
 			<key>begin</key>
 			<string>(&lt;)([a-zA-Z0-9:-]++)(?=[^&gt;]*&gt;&lt;/\2&gt;)</string>
 			<key>beginCaptures</key>
@@ -851,6 +855,10 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#vue-interpolations</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#entities</string>
 				</dict>
 			</array>
@@ -881,6 +889,10 @@
 			<string>string.quoted.single.html</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#vue-interpolations</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>#entities</string>
@@ -946,6 +958,10 @@
 					<array>
 						<dict>
 							<key>include</key>
+							<string>#vue-interpolations</string>
+						</dict>
+						<dict>
+							<key>include</key>
 							<string>#entities</string>
 						</dict>
 					</array>
@@ -979,6 +995,10 @@
 					<array>
 						<dict>
 							<key>include</key>
+							<string>#vue-interpolations</string>
+						</dict>
+						<dict>
+							<key>include</key>
 							<string>#entities</string>
 						</dict>
 					</array>
@@ -991,7 +1011,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#vue-directive</string>
+					<string>#vue-directives</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1011,7 +1031,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>vue-directive</key>
+		<key>vue-directives</key>
 		<dict>
 			<key>begin</key>
 			<string>(?:\b(v-)|(:|@))([a-zA-Z\-]+)(?:\:([a-zA-Z\-]+))?(?:\.([a-zA-Z\-]+))*\s*(=)</string>
@@ -1108,6 +1128,43 @@
 					</dict>
 					<key>name</key>
 					<string>source.directive.vue</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.js</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>vue-interpolations</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\{\{\{?</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.tag.begin.html</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\}\}\}?</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.tag.end.html</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>expression.embbeded.vue</string>
 					<key>patterns</key>
 					<array>
 						<dict>
