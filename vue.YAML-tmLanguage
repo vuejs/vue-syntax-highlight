@@ -179,7 +179,7 @@ patterns:
     - include: source.coffee
 
 - name: source.js.embedded.html
-  begin: (?:^\s+)?(<)((?i:script))\b(?![^>]*/>)
+  begin: (<)((?i:script))\b(?![^>]*/>)(?![^>]*(?i:type.?=.?text/((?!javascript).*)))
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}
