@@ -112,6 +112,22 @@ patterns:
     patterns:
     - include: source.stylus
 
+- name: source.postcss.embedded.html
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="postcss(?:\?[^"]*)?")
+  end: (</)((?i:style))(>)(?:\s*\n)?
+  captures:
+    '1': {name: punctuation.definition.tag.begin.html}
+    '2': {name: entity.name.tag.style.html}
+    '3': {name: punctuation.definition.tag.html}
+  patterns:
+  - include: '#tag-stuff'
+  - begin: (>)
+    beginCaptures:
+      '1': {name: punctuation.definition.tag.end.html}
+    end: (?=</(?i:style))
+    patterns:
+    - include: source.postcss
+
 - name: source.sass.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:s(a|c)ss)(?:\?[^"]*)?")
   end: (</)((?i:style))(>)(?:\s*\n)?
