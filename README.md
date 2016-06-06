@@ -10,3 +10,7 @@ Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) comp
 - Manual: clone this repo into your Sublime `Packages` folder.
 
 **NOTE:** You still need to install corresponding packages for pre-processors (e.g. Jade, SASS, CoffeeScript) to get proper syntax highlighting for them.
+
+### License
+
+[MIT](http://opensource.org/licenses/MIT)
