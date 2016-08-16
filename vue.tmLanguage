@@ -257,7 +257,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>text.jade</string>
+							<string>source.jade</string>
 						</dict>
 					</array>
 				</dict>
@@ -449,7 +449,7 @@
 			<key>end</key>
 			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
 			<key>name</key>
-			<string>source.sass.embedded.html</string>
+			<string>source.scss.embedded.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -473,7 +473,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>source.sass</string>
+							<string>source.scss</string>
 						</dict>
 					</array>
 				</dict>
