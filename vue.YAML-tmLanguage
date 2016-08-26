@@ -63,6 +63,22 @@ patterns:
   - name: invalid.illegal.bad-comments-or-CDATA.html
     match: (\s*)(?!--|>)\S(\s*)
 
+- name: text.slm.embedded.html
+  begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="slm(?:\?[^"]*)?")
+  end: (</)((?i:template))(>)(?:\s*\n)?
+  captures:
+    '1': {name: punctuation.definition.tag.begin.html}
+    '2': {name: entity.name.tag.style.html}
+    '3': {name: punctuation.definition.tag.html}
+  patterns:
+  - include: '#tag-stuff'
+  - begin: (>)
+    beginCaptures:
+      '1': {name: punctuation.definition.tag.end.html}
+    end: (?=</(?i:template))
+    patterns:
+    - include: text.slm
+
 - name: text.jade.embedded.html
   begin: (?:^\s+)?(<)((?i:template))\b(?=[^>]*lang="jade(?:\?[^"]*)?")
   end: (</)((?i:template))(>)(?:\s*\n)?
