@@ -314,9 +314,9 @@ repository:
       begin: \{\{\{?
       end: \}\}\}?
       beginCaptures:
-        '0': {name: punctuation.definition.tag.begin.html}
+        '0': {name: punctuation.definition.generic.begin.html}
       endCaptures:
-        '0': {name: punctuation.definition.tag.end.html}
+        '0': {name: punctuation.definition.generic.end.html}
       patterns:
       - include: source.js
 
