@@ -11,6 +11,10 @@ Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) comp
 
 **NOTE:** You still need to install corresponding packages for pre-processors (e.g. Jade, SASS, CoffeeScript) to get proper syntax highlighting for them.
 
+### Enabling JSX Highlighting
+
+The `<script>` block uses the syntax highlighting currently active for you normal `.js` files. To support JSX highlighting inside Vue files, just set [Babel javascript highlighting package](https://packagecontrol.io/packages/Babel), which supports JSX, as your default JS highlighting. **Note you may need to explicitly disable Sublime's default `JavaScript` package to make it work.**
+
 ### License
 
 [MIT](http://opensource.org/licenses/MIT)
