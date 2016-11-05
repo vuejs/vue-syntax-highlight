@@ -145,7 +145,7 @@ patterns:
     - include: source.postcss
 
 - name: source.sass.embedded.html
-  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:s(a|c)ss)(?:\?[^"]*)?")
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:sass)(?:\?[^"]*)?")
   end: (</)((?i:style))(>)(?:\s*\n)?
   captures:
     '1': {name: punctuation.definition.tag.begin.html}
@@ -159,6 +159,23 @@ patterns:
     end: (?=</(?i:style))
     patterns:
     - include: source.sass
+
+- name: source.scss.embedded.html
+  begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="(?:scss)(?:\?[^"]*)?")
+  end: (</)((?i:style))(>)(?:\s*\n)?
+  captures:
+    '1': {name: punctuation.definition.tag.begin.html}
+    '2': {name: entity.name.tag.style.html}
+    '3': {name: punctuation.definition.tag.html}
+  patterns:
+  - include: '#tag-stuff'
+  - begin: (>)
+    beginCaptures:
+      '1': {name: punctuation.definition.tag.end.html}
+    end: (?=</(?i:style))
+    patterns:
+    - include: source.scss
+
 
 - name: source.less.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang="less(?:\?[^"]*)?")
