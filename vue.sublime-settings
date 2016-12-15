@@ -2,6 +2,7 @@
 	"extensions":
 	[
 		"vue",
-    "we"
+                "we",
+		"wpy"
 	]
 }
