@@ -248,7 +248,7 @@ patterns:
     - include: source.livescript
 
 - name: source.js.embedded.html
-  begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*type=(['"])text\/(babel|javascript)\1?)
+  begin: (<)((?:script))\b(?![^>]*/>)(?![^>]*(?i:type.?=.?text/((?!javascript|babel).*)))
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}
@@ -466,4 +466,5 @@ foldingStopMarker: |-
   |\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
   |^[^{]*\}
   )
+
 keyEquivalent: ^~H
