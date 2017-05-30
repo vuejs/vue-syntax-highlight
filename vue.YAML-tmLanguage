@@ -248,7 +248,7 @@ patterns:
     - include: source.livescript
 
 - name: source.js.embedded.html
-  begin: (<)((?:script))\b(?![^>]*/>)(?![^>]*(?i:type.?=.?text/((?!javascript|babel).*)))
+  begin: (<)((?i:script))\b(?![^>]*/>)(?![^>]*(?i:type.?=.?text/((?!javascript|babel).*)))
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}
