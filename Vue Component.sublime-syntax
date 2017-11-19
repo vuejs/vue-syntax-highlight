@@ -13,6 +13,7 @@ contexts:
         - match: "-->"
           scope: punctuation.definition.comment.begin.html
           pop: true
+
     - include: template_langs
     - match: '(<)(template).*(>)'
       captures:
@@ -27,11 +28,26 @@ contexts:
             2: entity.name.tag.custom.html
             3: punctuation.definition.tag.begin.html
           pop: true
-        - include: template_embeds
+        - include: template_content
     - include: scripts
     - include: styles
+    
+  template_langs:
+    - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]pug[\'\"])\s*.*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:text.pug
+      escape: (</)(template)(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
 
-  template_embeds:
+  template_content:
     - match: (?:^|\s+)(v-\S+|:\S+|@\S+)\b\s*(=)\s*(")\s*
       captures:
         1: entity.other.attribute-name.event.html
@@ -42,39 +58,9 @@ contexts:
           scope: punctuation.definition.string.end.html string.quoted.double.html
           pop: true
         - include: scope:source.js
-    - match: (?:^|\s+)(v-\S+|:\S+|@\S+)\b\s*(=)\s*(')\s*
-      captures:
-        1: entity.other.attribute-name.event.html
-        2: punctuation.separator.key-value.html
-        3: punctuation.definition.string.begin.html string.quoted.single.html
-      push:
-        - match: "'"
-          scope: punctuation.definition.string.end.html string.quoted.single.html
-          pop: true
-        - include: scope:source.js
-    - match: '({{)'
-      push:
-        - match: '(}})'
-          pop: true
-        - include: scope:source.js
-
-  template_langs:
-    - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]pug[\'\"])\s*.*(>)
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.script.html
-        3: entity.other.attribute-name.html
-        4: string.quoted.double.html
-        5: meta.tag.script.end.html
-      push:
-        - match: (</)(template)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.style.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:text.pug
-
+    - match: '{{'
+      embed: 'scope:source.js'
+      escape: '}}'
 
   scripts:
     - match: (<)(script)\b[^>]*(lang)\s*=\s*([\'\"]coffee[\'\"])\s*.*(>)
@@ -84,27 +70,26 @@ contexts:
         3: entity.other.attribute-name.html
         4: string.quoted.double.html
         5: meta.tag.script.end.html
-      push:
-        - match: (</)(script)(>)
-          pop: true
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.script.html
-            3: meta.tag.script.end.html
-        - include: scope:source.coffee
+      embed: scope:source.coffee
+      escape: (</)(script)(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # If no lang is set, fall back to js
     - match: (<)(script).*(>)
       captures:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
-        3: punctuation.definition.tag.end.html
-      push:
-        - match: (</)(script)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.script.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:source.js
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:source.js
+      escape: (</)(script)(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
 
   styles:
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]stylus[\'\"])\s*.*(>)
@@ -114,15 +99,12 @@ contexts:
         3: entity.other.attribute-name.html
         4: string.quoted.double.html
         5: meta.tag.script.end.html
-      push:
-        - match: (</)(style)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.style.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:source.stylus
-
+      embed: scope:source.stylus
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]sass[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -130,14 +112,12 @@ contexts:
         3: entity.other.attribute-name.html
         4: string.quoted.double.html
         5: meta.tag.script.end.html
-      push:
-        - match: (</)(style)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.style.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:source.sass
+      embed: scope:source.sass
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]scss[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -145,26 +125,23 @@ contexts:
         3: entity.other.attribute-name.html
         4: string.quoted.double.html
         5: meta.tag.script.end.html
-      push:
-        - match: (</)(style)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.style.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:source.scss
-
+      embed: scope:source.scss
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
     - match: (<)(style).*(>)
       captures:
         1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.style.html
-        3: punctuation.definition.tag.end.html
-      push:
-        - match: (</)(style)(>)
-          captures: 
-            1: punctuation.definition.tag.begin.html
-            2: entity.name.tag.style.html
-            3: punctuation.definition.tag.end.html
-          pop: true
-        - include: scope:source.css
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+      embed: scope:source.css
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+
+
 
