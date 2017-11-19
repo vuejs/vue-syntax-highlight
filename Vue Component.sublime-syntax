@@ -13,7 +13,11 @@ contexts:
         - match: "-->"
           scope: punctuation.definition.comment.begin.html
           pop: true
+    - include: templates
+    - include: scripts
+    - include: styles
 
+  templates:
     - include: template_langs
     - match: '(<)(template).*(>)'
       captures:
@@ -29,8 +33,6 @@ contexts:
             3: punctuation.definition.tag.begin.html
           pop: true
         - include: template_content
-    - include: scripts
-    - include: styles
     
   template_langs:
     - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]pug[\'\"])\s*.*(>)
@@ -48,6 +50,16 @@ contexts:
         3: meta.tag.script.end.html
 
   template_content:
+    # Ensure that HTML comments still have prescendence over all other 
+    - match: '<!--'
+      scope: punctuation.definition.comment.begin.html
+      push:
+        - meta_scope: comment.block.html
+        - match: '(-*)--\s*>'
+          captures:
+            1: invalid.illegal.bad-comments-or-CDATA.html
+          scope: punctuation.definition.comment.begin.html
+          pop: true
     - match: (?:^|\s+)(v-\S+|:\S+|@\S+)\b\s*(=)\s*(")\s*
       captures:
         1: entity.other.attribute-name.event.html
@@ -61,6 +73,8 @@ contexts:
     - match: '{{'
       embed: 'scope:source.js'
       escape: '}}'
+    # nested template
+    - include: templates
 
   scripts:
     - match: (<)(script)\b[^>]*(lang)\s*=\s*([\'\"]coffee[\'\"])\s*.*(>)
