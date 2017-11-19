@@ -35,6 +35,7 @@ contexts:
         - include: template_content
     
   template_langs:
+    # 'pug' language
     - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]pug[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -43,7 +44,35 @@ contexts:
         4: string.quoted.double.html
         5: meta.tag.script.end.html
       embed: scope:text.pug
-      escape: (</)(template)(>)
+      escape: (</)(template).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # 'slm' language
+    - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]slm[\'\"])\s*.*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:text.slm
+      escape: (</)(template).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # 'jade' language
+    - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]jade[\'\"])\s*.*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:text.jade
+      escape: (</)(template).*(>)
       escape_captures: 
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
@@ -73,10 +102,11 @@ contexts:
     - match: '{{'
       embed: 'scope:source.js'
       escape: '}}'
-    # nested template
+    # support for nested template
     - include: templates
 
   scripts:
+    # 'coffee' language
     - match: (<)(script)\b[^>]*(lang)\s*=\s*([\'\"]coffee[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -90,14 +120,26 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
         3: meta.tag.script.end.html
-    # If no lang is set, fall back to js
-    - match: (<)(script).*(>)
+    # 'livescript' language
+    - match: (<)(script)\b[^>]*(lang)\s*=\s*([\'\"]livescript[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
         3: entity.other.attribute-name.html
         4: string.quoted.double.html
         5: meta.tag.script.end.html
+      embed: scope:source.livescript
+      escape: (</)(script)(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # If no lang is set, fall back to js
+    - match: (<)(script).*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
       embed: scope:source.js
       escape: (</)(script)(>)
       escape_captures: 
@@ -106,6 +148,7 @@ contexts:
         3: meta.tag.script.end.html
 
   styles:
+    # 'stylus' language
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]stylus[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -119,6 +162,7 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
         3: meta.tag.script.end.html
+    # 'sass' language
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]sass[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -132,6 +176,7 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
         3: meta.tag.script.end.html
+    # 'scss' language
     - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]scss[\'\"])\s*.*(>)
       captures:
         1: punctuation.definition.tag.begin.html
@@ -145,6 +190,35 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
         3: meta.tag.script.end.html
+    # 'postcss' language
+    - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]postcss[\'\"])\s*.*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:source.postcss
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # 'less' language
+    - match: (<)(style)\b[^>]*(lang)\s*=\s*([\'\"]less[\'\"])\s*.*(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: entity.other.attribute-name.html
+        4: string.quoted.double.html
+        5: meta.tag.script.end.html
+      embed: scope:source.less
+      escape: (</)(style).*(>)
+      escape_captures: 
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+        3: meta.tag.script.end.html
+    # fallback css language
     - match: (<)(style).*(>)
       captures:
         1: punctuation.definition.tag.begin.html
