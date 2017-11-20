@@ -18,7 +18,7 @@ contexts:
     - include: styles
 
   templates:
-    - include: template_langs
+    - include: template-langs
     - match: '(<)(template).*(>)'
       captures:
         1: punctuation.definition.tag.begin.html
@@ -32,9 +32,9 @@ contexts:
             2: entity.name.tag.custom.html
             3: punctuation.definition.tag.begin.html
           pop: true
-        - include: template_content
+        - include: template-content
     
-  template_langs:
+  template-langs:
     # 'pug' language
     - match: (<)(template)\b[^>]*(lang)\s*=\s*([\'\"]pug[\'\"])\s*.*(>)
       captures:
@@ -78,7 +78,7 @@ contexts:
         2: entity.name.tag.script.html
         3: meta.tag.script.end.html
 
-  template_content:
+  template-content:
     # Ensure that HTML comments still have prescendence over all other 
     - match: '<!--'
       scope: punctuation.definition.comment.begin.html
@@ -99,9 +99,23 @@ contexts:
           scope: punctuation.definition.string.end.html string.quoted.double.html
           pop: true
         - include: scope:source.js
-    - match: '{{'
+    - match: (?:^|\s+)(v-\S+|:\S+|@\S+)\b\s*(=)\s*(')\s*
+      captures:
+        1: entity.other.attribute-name.event.html
+        2: punctuation.separator.key-value.html
+        3: punctuation.definition.string.begin.html string.quoted.double.html
+      push:
+        - match: "'"
+          scope: punctuation.definition.string.end.html string.quoted.double.html
+          pop: true
+        - include: scope:source.js        
+    - match: '({{)'
+      captures:
+        1: punctuation.definition.template-expression.begin.vue
       embed: 'scope:source.js'
-      escape: '}}'
+      escape: '(}})'
+      end_captures:
+        1: punctuation.definition.template-expression.end.vue
     # support for nested template
     - include: templates
 
