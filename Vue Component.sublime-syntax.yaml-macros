@@ -1,8 +1,8 @@
 %YAML 1.2
-%TAG ! tag:yaml-macros:vue_macros:YAMLMacros.lib.extend:
+%TAG ! tag:yaml-macros:YAMLMacros.lib.extend:
 ---
 !extend
-_base: HTML.sublime-syntax
+_base: HTML.yaml
 name: Vue Component
 scope: text.html.vue
 hidden: false

@@ -1,7 +1,6 @@
 %YAML 1.2
 ---
 name: HTML
-hidden: true
 file_extensions:
   - html
   - htm

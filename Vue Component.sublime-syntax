@@ -1,7 +1,6 @@
 %YAML 1.2
 ---
 name: Vue Component
-hidden: false
 file_extensions: [vue]
 first_line_match: (?i)<(!DOCTYPE\s*)?html
 scope: text.html.vue
@@ -855,6 +854,4 @@ contexts:
       - match: (?=>)
         pop: true
       - include: tag-attributes
-
-
-
+hidden: false
