@@ -1,6 +1,5 @@
 <!--
-This is a bug in the current implementation. Ideally should be fixed
-in a rewrite using sublime-syntax format.
+This was a bug in the old implementation.
 -->
 
 <template>
