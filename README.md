@@ -3,7 +3,7 @@
 Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [vue-loader](https://github.com/vuejs/vue-loader) or [vueify](https://github.com/vuejs/vueify)).
 
 <p align="center">
-  <img width="809px" src="https://raw.githubusercontent.com/vuejs/vue-syntax-highlight/master/samples/screenshot.png">
+  <img width="809px" src="https://raw.githubusercontent.com/vuejs/vue-syntax-highlight/new/samples/screenshot.png">
 </p>
 
 ### Install
