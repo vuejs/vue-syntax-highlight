@@ -45,10 +45,15 @@ contexts: !merge
       pop: true
     - match: '{{'
       scope: punctuation.definition.template.begin.html
-      embed: scope:source.js
-      escape: '}}'
-      escape_captures:
-        0: punctuation.definition.template.end.html
+      push:
+        - match: '}}'
+          scope: punctuation.definition.template.end.html
+          pop: true
+        - match: ''
+          push: scope:source.js
+          with_prototype:
+            - match: (?=}})
+              pop: true
     - include: main
 
   vue-directive:
@@ -70,16 +75,27 @@ contexts: !merge
   js-string:
     - match: '"'
       scope: punctuation.definition.string.begin.html
-      embed: scope:source.js
-      escape: '"'
-      escape_captures:
-        0: punctuation.definition.string.end.html
+      push:
+        - match: '"'
+          scope: punctuation.definition.string.end.html
+          pop: true
+        - match: ''
+          push: scope:source.js
+          with_prototype:
+          - match: (?=")
+            pop: true
     - match: "'"
       scope: punctuation.definition.string.begin.html
-      embed: scope:source.js
-      escape: "'"
-      escape_captures:
-        0: punctuation.definition.string.end.html
+      push:
+        - match: "'"
+          scope: punctuation.definition.string.end.html
+          pop: true
+        - match: ''
+          push: scope:source.js
+          with_prototype:
+          - match: (?=')
+            pop: true
+
     - include: else-pop
 
   langs:
