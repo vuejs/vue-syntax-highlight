@@ -1,5 +1,7 @@
 # Vue Syntax Highlight
 
+**Note**: the `new` branch hosts the new syntax that only works in Sublime build > 3153. For the old syntax, see `master` branch.
+
 Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [vue-loader](https://github.com/vuejs/vue-loader) or [vueify](https://github.com/vuejs/vueify)).
 
 <p align="center">
@@ -22,8 +24,6 @@ The `<script>` block uses the syntax highlighting currently active for you norma
 2. Explicitly disable Sublime's default `JavaScript` package. This allows the Babel package to be applied the embedded `<script>` in `*.vue` files. You may need to restart Sublime for this to take effect.
 
 ### Development
-
-> Note: the `master` branch hosts the new syntax that only works in Sublime build > 3153. For the old syntax, see `oldsyntax` branch.
 
 - The development of this syntax relies on the [YAML-Macros](https://github.com/Thom1729/YAML-Macros) package. You can install it from Package Control.
 
