@@ -8,7 +8,7 @@ For a newer implementation of the syntax that is distributed to build >=3153, Se
 
 Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [vue-loader](https://github.com/vuejs/vue-loader) or [vueify](https://github.com/vuejs/vueify)).
 
-![screenshot](https://cloud.githubusercontent.com/assets/499550/11458853/99ed23aa-9696-11e5-9bf6-43c706487aee.png)
+![screenshot](https://raw.githubusercontent.com/vuejs/vue-syntax-highlight/new/samples/screenshot.png)
 
 ### Install
 
