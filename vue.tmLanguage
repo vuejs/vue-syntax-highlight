@@ -449,7 +449,7 @@
 			<key>end</key>
 			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
 			<key>name</key>
-			<string>source.postcss.embedded.html</string>
+			<string>source.sss.embedded.html</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -473,7 +473,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>source.postcss</string>
+							<string>source.sss</string>
 						</dict>
 					</array>
 				</dict>
