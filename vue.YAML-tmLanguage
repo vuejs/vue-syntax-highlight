@@ -159,7 +159,6 @@ patterns:
     end: (?=</(?i:style))
     patterns:
     - include: source.sass
-    - include: source.scss
 
 - name: source.scss.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang=(['"])scss\1?)
@@ -175,9 +174,7 @@ patterns:
       '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
-    - include: source.sass
     - include: source.scss
-
 
 - name: source.less.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang=(['"])less\1?)

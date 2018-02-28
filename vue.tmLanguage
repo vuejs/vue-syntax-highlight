@@ -529,10 +529,6 @@
 							<key>include</key>
 							<string>source.sass</string>
 						</dict>
-						<dict>
-							<key>include</key>
-							<string>source.scss</string>
-						</dict>
 					</array>
 				</dict>
 			</array>
@@ -583,10 +579,6 @@
 					<string>(?=&lt;/(?i:style))</string>
 					<key>patterns</key>
 					<array>
-						<dict>
-							<key>include</key>
-							<string>source.sass</string>
-						</dict>
 						<dict>
 							<key>include</key>
 							<string>source.scss</string>

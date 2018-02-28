@@ -12,7 +12,8 @@ Things to verify:
     <span
       v-text="foo * 10 + 'hi'"
       :id="foo + 'baz'"
-      @click="onClick('hello')">
+      @click="onClick('hello')"
+      @click.prevent="onClick('hello')">
       Hello
     </span>
   </div>
