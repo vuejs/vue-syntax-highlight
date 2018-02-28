@@ -696,7 +696,7 @@ contexts:
         - match: (>)
           captures:
             1: meta.tag.style.begin.html punctuation.definition.tag.end.html
-          embed: scope:source.scss
+          embed: scope:source.sass
           escape: (?i)(?=</style)
         - match: ''
           push:
