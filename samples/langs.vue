@@ -14,6 +14,20 @@ body
   color primary-color
 </style>
 
+<style lang="scss">
+@import '~foo';
+
+a {
+  color: red;
+}
+</style>
+
+<style lang="sass">
+@import '~foo'
+a
+  color: red
+</style>
+
 <template lang="pug">
 div.app
   h1.title This is the app
