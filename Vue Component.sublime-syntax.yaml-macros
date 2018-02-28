@@ -57,10 +57,10 @@ contexts: !merge
     - include: main
 
   vue-directive:
-    - match: \b(v-[\w-]+)\b
+    - match: \b(v-[\w\:\.-]+)\b
       scope: entity.other.attribute-name.html
       push: js-attribute-value
-    - match: \B(:|@)([\w-]+)\b
+    - match: \B(:|@)([\w\.-]+)\b
       captures:
         1: punctuation.definition.attribute.html
         2: entity.other.attribute-name.html
@@ -235,7 +235,7 @@ contexts: !merge
         - match: '(>)'
           captures:
             1: meta.tag.style.begin.html punctuation.definition.tag.end.html
-          embed: scope:source.sass
+          embed: scope:source.scss
           escape: (?i)(?=</style)
         - match: ''
           push:
