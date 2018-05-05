@@ -190,7 +190,7 @@ patterns:
       '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
-    - include: source.less
+    - include: source.css.less
 
 - name: source.css.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?![^>]*/>)
