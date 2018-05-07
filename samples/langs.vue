@@ -7,6 +7,7 @@ Things to verify:
 -->
 
 <style lang="stylus">
+
 font-stack = Helvetica, sans-serif
 primary-color = #999
 body
@@ -19,6 +20,20 @@ body
 
 a {
   color: red;
+}
+</style>
+
+<style lang="less">
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+a.foo {
+	color: @nice-blue;
+}
+</style>
+
+<style lang="postcss">
+a {
+	color: red
 }
 </style>
 
