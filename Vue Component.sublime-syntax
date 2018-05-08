@@ -44,6 +44,7 @@ contexts:
 
   main:
     - include: template-tag
+    - include: mustache-expression
 
     - match: (<\?)(xml)
       captures:
@@ -637,6 +638,14 @@ contexts:
     - include: tag-style-attribute
     - include: tag-event-attribute
     - include: tag-generic-attribute
+  mustache-expression:
+    - match: '{{'
+      scope: punctuation.definition.template.begin.html
+      embed: scope:source.js
+      escape: '}}'
+      escape_captures:
+        0: punctuation.definition.template.end.html
+
   template-tag:
     - match: (<)((?i:template))\b
       captures:
@@ -853,17 +862,7 @@ contexts:
       set:
         - include: template-close-tag
         - match: ''
-          push: scope:text.html.basic
-          with_prototype:
-            - match: (?=</template)
-              pop: true
-            - match: '{{'
-              scope: punctuation.definition.template.begin.html
-              embed: scope:source.js
-              escape: '}}|(?=</template)'
-              escape_captures:
-                0: punctuation.definition.template.end.html
-
+          push: main
 
   template-lang-attribute:
     - match: (?i)\blang\b

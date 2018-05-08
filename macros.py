@@ -23,7 +23,7 @@ def embed_language_in_tag(tag, match, embed):
                     set=[
                         _rule(include='%s-close-tag' % tag),
                         _rule(
-                            match=r'(?=\S)',
+                            match=r'',
                             embed=('scope:%s' % embed),
                             embed_scope=('%s.embedded.html' % embed),
                             escape=r'(?i)(?=(?:-->\s*)?</%s)' % tag,

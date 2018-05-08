@@ -11,6 +11,15 @@ file_extensions: [vue]
 contexts: !merge
   main: !prepend
     - include: template-tag
+    - include: mustache-expression
+
+  mustache-expression:
+    - match: '{{'
+      scope: punctuation.definition.template.begin.html
+      embed: scope:source.js
+      escape: '}}'
+      escape_captures:
+        0: punctuation.definition.template.end.html
 
   tag-attributes: !prepend
     - include: vue-directive
@@ -133,17 +142,7 @@ contexts: !merge
       set:
         - include: template-close-tag
         - match: ''
-          push: scope:text.html.basic
-          with_prototype:
-            - match: (?=</template)
-              pop: true
-            - match: '{{'
-              scope: punctuation.definition.template.begin.html
-              embed: scope:source.js
-              escape: '}}|(?=</template)'
-              escape_captures:
-                0: punctuation.definition.template.end.html
-
+          push: main
 
   template-lang-attribute:
     - match: (?i)\blang\b
