@@ -644,44 +644,6 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
-    # - match: '(?i)(<)(template)\b'
-    #   captures:
-    #     0: meta.tag.template.begin.html
-    #     1: punctuation.definition.tag.begin.html
-    #     2: entity.name.tag.template.html
-    #   push:
-    #     - match: (?i)(</)(template)(>)
-    #       captures:
-    #         0: meta.tag.template.end.html
-    #         1: punctuation.definition.tag.begin.html
-    #         2: entity.name.tag.template.html
-    #         3: punctuation.definition.tag.end.html
-    #       pop: true
-    #     - match: '>'
-    #       scope: meta.tag.template.begin.html punctuation.definition.tag.end.html
-    #       push: mustache-template
-    #     - match: ''
-    #       push:
-    #         - meta_scope: meta.tag.template.begin.html
-    #         - match: '(?=>)'
-    #           pop: true
-    #         - include: tag-attributes
-
-  mustache-template:
-    - match: (?=</template)
-      pop: true
-    - match: '{{'
-      scope: punctuation.definition.template.begin.html
-      push:
-        - match: '}}'
-          scope: punctuation.definition.template.end.html
-          pop: true
-        - match: ''
-          push: scope:source.js
-          with_prototype:
-            - match: (?=}})
-              pop: true
-    - include: main
 
   vue-directive:
     - match: \b(v-[\w\:\.-]+)\b
@@ -702,26 +664,16 @@ contexts:
   js-string:
     - match: '"'
       scope: punctuation.definition.string.begin.html
-      push:
-        - match: '"'
-          scope: punctuation.definition.string.end.html
-          pop: true
-        - match: ''
-          push: scope:source.js
-          with_prototype:
-            - match: (?=")
-              pop: true
+      embed: scope:source.js
+      escape: '"'
+      escape_captures:
+        0: punctuation.definition.string.end.html
     - match: "'"
       scope: punctuation.definition.string.begin.html
-      push:
-        - match: "'"
-          scope: punctuation.definition.string.end.html
-          pop: true
-        - match: ''
-          push: scope:source.js
-          with_prototype:
-            - match: (?=')
-              pop: true
+      embed: scope:source.js
+      escape: "'"
+      escape_captures:
+        0: punctuation.definition.string.end.html
 
     - include: else-pop
 

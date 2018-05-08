@@ -42,26 +42,16 @@ contexts: !merge
   js-string:
     - match: '"'
       scope: punctuation.definition.string.begin.html
-      push:
-        - match: '"'
-          scope: punctuation.definition.string.end.html
-          pop: true
-        - match: ''
-          push: scope:source.js
-          with_prototype:
-          - match: (?=")
-            pop: true
+      embed: scope:source.js
+      escape: '"'
+      escape_captures:
+        0: punctuation.definition.string.end.html
     - match: "'"
       scope: punctuation.definition.string.begin.html
-      push:
-        - match: "'"
-          scope: punctuation.definition.string.end.html
-          pop: true
-        - match: ''
-          push: scope:source.js
-          with_prototype:
-          - match: (?=')
-            pop: true
+      embed: scope:source.js
+      escape: "'"
+      escape_captures:
+        0: punctuation.definition.string.end.html
 
     - include: else-pop
 
