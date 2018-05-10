@@ -427,60 +427,6 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang=(['"])postcss\1?)</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.begin.html</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.style.html</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.tag.html</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
-			<key>name</key>
-			<string>source.postcss.embedded.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#tag-stuff</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(&gt;)</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.tag.end.html</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?=&lt;/(?i:style))</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.postcss</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>begin</key>
 			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang=(['"])postcss\?parser=sugarss\1?)</string>
 			<key>captures</key>
 			<dict>
@@ -528,6 +474,60 @@
 						<dict>
 							<key>include</key>
 							<string>source.sss</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?:^\s+)?(&lt;)((?i:style))\b(?=[^&gt;]*lang=(['"])postcss\1?)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.tag.begin.html</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.tag.style.html</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.tag.html</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(&lt;/)((?i:style))(&gt;)(?:\s*\n)?</string>
+			<key>name</key>
+			<string>source.postcss.embedded.html</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#tag-stuff</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(&gt;)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.tag.end.html</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=&lt;/(?i:style))</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.postcss</string>
 						</dict>
 					</array>
 				</dict>
