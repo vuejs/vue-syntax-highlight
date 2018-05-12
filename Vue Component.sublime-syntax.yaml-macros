@@ -1,5 +1,5 @@
 %YAML 1.2
-%TAG ! tag:yaml-macros:macros:
+%TAG ! tag:yaml-macros:src.macros:
 ---
 !extend
 _base: HTML.yaml
