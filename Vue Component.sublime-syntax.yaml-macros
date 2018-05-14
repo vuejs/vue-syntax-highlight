@@ -84,6 +84,7 @@ contexts: !merge
     - !style_language [ sass, source.sass ]
     - !style_language [ scss, source.scss ]
     - !style_language [ stylus, source.stylus ]
+    - !style_language [ postcss\?parser=sugarss, source.sss ]
     - !style_language [ postcss, source.postcss ]
     - !style_language [ less, source.css.less ]
     - match: (?=\S)

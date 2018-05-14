@@ -742,6 +742,20 @@ contexts:
                   escape: (?i)(?=(?:-->\s*)?</style)
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
+    - match: (?i)(?=postcss\?parser=sugarss(?!{{unquoted_attribute_value}})|\'postcss\?parser=sugarss\'|"postcss\?parser=sugarss")
+      set:
+        -   - meta_content_scope: meta.tag.style.begin.html
+            - include: style-common
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - include: style-close-tag
+                - match: ''
+                  embed_scope: source.sss.embedded.html
+                  embed: scope:source.sss
+                  escape: (?i)(?=(?:-->\s*)?</style)
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
     - match: (?i)(?=postcss(?!{{unquoted_attribute_value}})|\'postcss\'|"postcss")
       set:
         -   - meta_content_scope: meta.tag.style.begin.html
