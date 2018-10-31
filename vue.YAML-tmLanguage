@@ -174,7 +174,7 @@ patterns:
       '1': {name: punctuation.definition.tag.end.html}
     end: (?=</(?i:style))
     patterns:
-    - include: source.scss
+    - include: source.css.scss
 
 - name: source.less.embedded.html
   begin: (?:^\s+)?(<)((?i:style))\b(?=[^>]*lang=(['"])less\1?)

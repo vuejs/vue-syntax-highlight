@@ -581,7 +581,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>source.scss</string>
+							<string>source.css.scss</string>
 						</dict>
 					</array>
 				</dict>
