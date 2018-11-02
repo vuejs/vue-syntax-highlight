@@ -82,7 +82,7 @@ contexts: !merge
 
   style-lang-decider:
     - !style_language [ sass, source.sass ]
-    - !style_language [ scss, source.css.scss ]
+    - !style_language [ scss, source.scss ]
     - !style_language [ stylus, source.stylus ]
     - !style_language [ postcss\?parser=sugarss, source.sss ]
     - !style_language [ postcss, source.postcss ]
