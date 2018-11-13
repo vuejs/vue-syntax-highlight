@@ -17,6 +17,7 @@ contexts: !merge
     - match: '{{'
       scope: punctuation.definition.template.begin.html
       embed: scope:source.js
+      embed_scope: source.js.embedded.vue
       escape: '}}'
       escape_captures:
         0: punctuation.definition.template.end.html
@@ -52,12 +53,14 @@ contexts: !merge
     - match: '"'
       scope: punctuation.definition.string.begin.html
       embed: scope:source.js
+      embed_scope: source.js.embedded.vue
       escape: '"'
       escape_captures:
         0: punctuation.definition.string.end.html
     - match: "'"
       scope: punctuation.definition.string.begin.html
       embed: scope:source.js
+      embed_scope: source.js.embedded.vue
       escape: "'"
       escape_captures:
         0: punctuation.definition.string.end.html
