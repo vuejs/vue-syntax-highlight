@@ -639,13 +639,18 @@ contexts:
     - include: tag-event-attribute
     - include: tag-generic-attribute
   mustache-expression:
-    - match: '{{'
-      scope: punctuation.definition.template.begin.html
-      embed: scope:source.js
-      embed_scope: source.js.embedded.vue
-      escape: '}}'
-      escape_captures:
-        0: punctuation.definition.template.end.html
+    - match: (?={{)
+      set:
+        - meta_scope: meta.template.vue
+        - match: '{{'
+          scope: punctuation.definition.template.begin.html
+          embed: scope:source.js
+          embed_scope: source.js.embedded.vue
+          escape: '}}'
+          escape_captures:
+            0: meta.template.vue punctuation.definition.template.end.html
+        - match: ''
+          pop: true
 
   template-tag:
     - match: (<)((?i:template))\b
