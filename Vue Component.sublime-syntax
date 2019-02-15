@@ -390,6 +390,11 @@ contexts:
         - script-html
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
+    - match: (?i)(?=text/x-template(?!{{unquoted_attribute_value}})|'text/x-template'|"text/x-template")
+      set:
+        - script-html
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
     - match: (?=\S)
       set:
         - script-other
