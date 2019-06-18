@@ -31,7 +31,7 @@ contexts: !merge
     - include: vue-directive
 
   template-tag:
-    - match: (<)((?i:template))\b
+    - match: (<)((?i:template(>| )))\b
       captures:
         0: meta.tag.template.begin.html
         1: punctuation.definition.tag.begin.html
