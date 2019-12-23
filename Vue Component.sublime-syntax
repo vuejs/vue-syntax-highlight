@@ -2,7 +2,6 @@
 ---
 name: Vue Component
 file_extensions: [vue]
-first_line_match: (?i)<(!DOCTYPE\s*)?html
 scope: text.html.vue
 variables:
   attribute_char: (?:[^ "'>/=\x00-\x1f\x7f-\x9f])
