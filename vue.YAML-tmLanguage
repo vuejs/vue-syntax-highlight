@@ -227,7 +227,7 @@ patterns:
     - include: source.ts
 
 - name: source.coffee.embedded.html
-  begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*lang=(['"])coffee\1?)
+  begin: (?:^\s+)?(<)((?i:script))\b(?=[^>]*lang=(['"])(coffee|coffeescript)\1?)
   beginCaptures:
     '1': {name: punctuation.definition.tag.begin.html}
     '2': {name: entity.name.tag.script.html}

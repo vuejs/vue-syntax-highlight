@@ -39,3 +39,9 @@ module.exports =
   data: ->
     msg: 'Hello from coffee!'
 </script>
+
+<script lang="coffeescript">
+module.exports =
+  data: ->
+    msg: 'Hello from coffeescript!'
+</script>
