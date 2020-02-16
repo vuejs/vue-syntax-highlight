@@ -12,10 +12,21 @@ Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) comp
 
 ### Install
 
+**NOTE:** You still need to install corresponding packages for pre-processors (e.g. Jade, SASS, CoffeeScript) to get proper syntax highlighting for them.
+
+#### Sublime Text
+
 - Via Package Control: search for `Vue Syntax Highlight`.
 - Manual: clone this repo into your Sublime `Packages` folder.
 
-**NOTE:** You still need to install corresponding packages for pre-processors (e.g. Jade, SASS, CoffeeScript) to get proper syntax highlighting for them.
+#### Textmate 2
+
+From terminal:
+
+```
+cd ~/Library/Application Support/TextMate/Managed/Bundles/V
+git clone git@github.com:vuejs/vue-syntax-highlight.git Vue.tmbundle
+```
 
 ### Enabling JSX Highlighting
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>description</key>
+	<string>Syntax highlighting for single-file Vue components</string>
+	<key>name</key>
+	<string>Vue</string>
+	<key>uuid</key>
+	<string>AB52182B-3035-4089-B7DB-C2AE48287888</string>
+</dict>
+</plist>
