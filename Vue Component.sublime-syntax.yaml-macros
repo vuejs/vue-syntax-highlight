@@ -12,6 +12,7 @@ contexts: !merge
   main: !prepend
     - include: template-tag
     - include: mustache-expression
+    - include: query-tag
 
   mustache-expression:
     - match: '(?={{)'
@@ -37,6 +38,20 @@ contexts: !merge
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
+
+  query-tag:
+    - match: (<)(page-query|static-query)(>)
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.block.any.html
+        3: punctuation.definition.tag.end.html
+      embed: scope:source.graphql
+      embed_scope: source.graphql
+      escape: (</?)(page-query|static-query)(>)
+      escape_captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.block.any.html
+        3: punctuation.definition.tag.end.html
 
   vue-directive:
     - match: \b(v-[\w\:\.-]+)\b
