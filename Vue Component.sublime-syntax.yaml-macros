@@ -42,7 +42,7 @@ contexts: !merge
     - match: \b(v-[\w\:\.-]+)\b
       scope: entity.other.attribute-name.html
       push: js-attribute-value
-    - match: \B(:|@)([\w\.-]+)\b
+    - match: \B(:|@)([\w\:\.-]+)\b
       captures:
         1: punctuation.definition.attribute.html
         2: entity.other.attribute-name.html
