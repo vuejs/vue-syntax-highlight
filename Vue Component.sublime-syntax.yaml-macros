@@ -1,15 +1,16 @@
 %YAML 1.2
 %TAG ! tag:yaml-macros:src.macros:
 ---
-!extend
-_base: HTML.yaml
+extends: Packages/HTML/HTML.sublime-syntax
 name: Vue Component
+version: 2
 scope: text.html.vue
-hidden: false
-file_extensions: [vue]
+file_extensions:
+  - vue
 
-contexts: !merge
-  main: !prepend
+contexts:
+  main:
+    - meta_prepend: true
     - include: template-tag
     - include: mustache-expression
 
@@ -19,19 +20,20 @@ contexts: !merge
         - meta_scope: meta.template.vue
         - match: '{{'
           scope: punctuation.definition.template.begin.html
-          embed: scope:source.js
-          embed_scope: source.js.embedded.vue
+          embed: scope:source.jsx
+          embed_scope: source.jsx.embedded.vue
           escape: '}}'
           escape_captures:
             0: meta.template.vue punctuation.definition.template.end.html
         - match: ''
           pop: true
 
-  tag-attributes: !prepend
+  tag-attributes:
+    - meta_prepend: true
     - include: vue-directive
 
   template-tag:
-    - match: (<)((?i:template(>| )))\b
+    - match: (<)((?i:template)){{tag_name_break}}
       captures:
         0: meta.tag.template.begin.html
         1: punctuation.definition.tag.begin.html
@@ -39,44 +41,56 @@ contexts: !merge
       push: template-mustache
 
   vue-directive:
-    - match: \b(v-[\w\:\.-]+)\b
-      scope: entity.other.attribute-name.html
-      push: js-attribute-value
-    - match: \B(:|@)([\w\.-]+)\b
-      captures:
-        1: punctuation.definition.attribute.html
-        2: entity.other.attribute-name.html
-      push: js-attribute-value
+    - match: (?=v-)
+      push:
+        - vue-directive-assignment
+        - tag-generic-attribute-name
+    - match: (?::|@)
+      scope: punctuation.definition.attribute.html
+      push:
+        - vue-directive-assignment
+        - tag-generic-attribute-name
 
-  js-attribute-value:
+  vue-directive-assignment:
     - match: '='
       scope: punctuation.separator.key-value.html
-      set: js-string
+      set: vue-directive-value
     - include: else-pop
 
-  js-string:
+  vue-directive-value:
     - match: '"'
-      scope: punctuation.definition.string.begin.html
-      embed: scope:source.js
-      embed_scope: source.js.embedded.vue
+      scope:
+        meta.string.html string.quoted.double.html
+        punctuation.definition.string.begin.html
+      embed: scope:source.jsx
+      pop: true
+      embed_scope: meta.string.html source.jsx.embedded.vue
       escape: '"'
       escape_captures:
-        0: punctuation.definition.string.end.html
+        0:
+          meta.string.html string.quoted.double.html
+          punctuation.definition.string.end.html
     - match: "'"
-      scope: punctuation.definition.string.begin.html
-      embed: scope:source.js
-      embed_scope: source.js.embedded.vue
+      scope:
+        meta.string.html string.quoted.single.html
+        punctuation.definition.string.begin.html
+      embed: scope:source.jsx
+      pop: true
+      embed_scope: meta.string.html source.jsx.embedded.vue
       escape: "'"
       escape_captures:
-        0: punctuation.definition.string.end.html
+        0:
+          meta.string.html string.quoted.single.html
+          punctuation.definition.string.end.html
 
     - include: else-pop
 
-  style-common: !prepend
+  style-common:
+    - meta_prepend: true
     - include: style-lang-attribute
 
   style-lang-attribute:
-    - match: (?i)\blang\b
+    - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
       set:
         - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
@@ -101,11 +115,18 @@ contexts: !merge
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
 
-  script-common: !prepend
+  script-common:
+    - meta_prepend: true
     - include: script-lang-attribute
 
+  script-javascript-content:
+    - match: (?=\S)
+      embed: scope:source.jsx
+      embed_scope: source.jsx.embedded.html
+      escape: '{{script_close_lookahead}}'
+
   script-lang-attribute:
-    - match: (?i)\blang\b
+    - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
       set:
         - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
@@ -135,7 +156,7 @@ contexts: !merge
       pop: true
 
   template-close-tag:
-    - match: (?i)(</)(template)(>)
+    - match: (</)((?i:template))(>)
       scope: meta.tag.template.end.html
       captures:
         1: punctuation.definition.tag.begin.html
@@ -154,7 +175,7 @@ contexts: !merge
           push: main
 
   template-lang-attribute:
-    - match: (?i)\blang\b
+    - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
       set:
         - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
