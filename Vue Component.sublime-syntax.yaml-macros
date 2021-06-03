@@ -20,8 +20,8 @@ contexts:
         - meta_scope: meta.template.vue
         - match: '{{'
           scope: punctuation.definition.template.begin.html
-          embed: scope:source.jsx
-          embed_scope: source.jsx.embedded.vue
+          embed: scope:source.js
+          embed_scope: source.js.embedded.vue
           escape: '}}'
           escape_captures:
             0: meta.template.vue punctuation.definition.template.end.html
@@ -62,9 +62,9 @@ contexts:
       scope:
         meta.string.html string.quoted.double.html
         punctuation.definition.string.begin.html
-      embed: scope:source.jsx
+      embed: scope:source.js
       pop: true
-      embed_scope: meta.string.html source.jsx.embedded.vue
+      embed_scope: meta.string.html source.js.embedded.vue
       escape: '"'
       escape_captures:
         0:
@@ -74,9 +74,9 @@ contexts:
       scope:
         meta.string.html string.quoted.single.html
         punctuation.definition.string.begin.html
-      embed: scope:source.jsx
+      embed: scope:source.js
       pop: true
-      embed_scope: meta.string.html source.jsx.embedded.vue
+      embed_scope: meta.string.html source.js.embedded.vue
       escape: "'"
       escape_captures:
         0:
