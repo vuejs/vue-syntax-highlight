@@ -1,6 +1,9 @@
 # Vue Syntax Highlight
 
-**Note**: the `new` branch hosts the new syntax that only works in Sublime build > 3153. For the old syntax, see `master` branch.
+**Note**: the `st4` branch hosts the new syntax that only works in Sublime build > 4107. 
+
+* For Sublime Text 2 support (`.tmlanguage` files), see `master` branch.
+* For Sublime Text 3 support, see `new` branch.
 
 Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) components (enabled by [vue-loader](https://github.com/vuejs/vue-loader) or [vueify](https://github.com/vuejs/vueify)).
 
