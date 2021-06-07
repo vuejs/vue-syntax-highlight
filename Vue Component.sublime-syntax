@@ -190,8 +190,8 @@ contexts:
 
   script-javascript-content:
     - match: (?=\S)
-      embed: scope:source.jsx
-      embed_scope: source.jsx.embedded.html
+      embed: scope:source.js
+      embed_scope: source.js.embedded.html
       escape: '{{script_close_lookahead}}'
 
   script-lang-attribute:
