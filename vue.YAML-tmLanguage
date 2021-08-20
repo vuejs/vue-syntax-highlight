@@ -36,12 +36,9 @@ patterns:
 
 - name: comment.block.html
   begin: <!--
-  end: --\s*>
+  end: -->
   captures:
     '0': {name: punctuation.definition.comment.html}
-  patterns:
-  - name: invalid.illegal.bad-comments-or-CDATA.html
-    match: --
 
 - name: meta.tag.sgml.html
   begin: <!
@@ -465,7 +462,7 @@ repository:
 foldingStartMarker: |-
   (?x)
   (<(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?>
-  |<!--(?!.*--\s*>)
+  |<!--(?!.*-->)
   |^<!--\ \#tminclude\ (?>.*?-->)$
   |<\?(?:php)?.*\b(if|for(each)?|while)\b.+:
   |\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
@@ -475,7 +472,7 @@ foldingStartMarker: |-
 foldingStopMarker: |-
   (?x)
   (</(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)>
-  |^(?!.*?<!--).*?--\s*>
+  |^(?!.*?<!--).*?-->
   |^<!--\ end\ tminclude\ -->$
   |<\?(?:php)?.*\bend(if|for(each)?|while)\b
   |\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)

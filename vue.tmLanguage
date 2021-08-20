@@ -9,7 +9,7 @@
 	<key>foldingStartMarker</key>
 	<string>(?x)
 (&lt;(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)\b.*?&gt;
-|&lt;!--(?!.*--\s*&gt;)
+|&lt;!--(?!.*--&gt;)
 |^&lt;!--\ \#tminclude\ (?&gt;.*?--&gt;)$
 |&lt;\?(?:php)?.*\b(if|for(each)?|while)\b.+:
 |\{\{?(if|foreach|capture|literal|foreach|php|section|strip)
@@ -18,7 +18,7 @@
 	<key>foldingStopMarker</key>
 	<string>(?x)
 (&lt;/(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|li|form|dl)&gt;
-|^(?!.*?&lt;!--).*?--\s*&gt;
+|^(?!.*?&lt;!--).*?--&gt;
 |^&lt;!--\ end\ tminclude\ --&gt;$
 |&lt;\?(?:php)?.*\bend(if|for(each)?|while)\b
 |\{\{?/(if|foreach|capture|literal|foreach|php|section|strip)
@@ -138,18 +138,9 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>--\s*&gt;</string>
+			<string>--&gt;</string>
 			<key>name</key>
 			<string>comment.block.html</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>--</string>
-					<key>name</key>
-					<string>invalid.illegal.bad-comments-or-CDATA.html</string>
-				</dict>
-			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
