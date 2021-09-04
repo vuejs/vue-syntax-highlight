@@ -119,12 +119,6 @@ contexts:
     - meta_prepend: true
     - include: script-lang-attribute
 
-  script-javascript-content:
-    - match: (?=\S)
-      embed: scope:source.js
-      embed_scope: source.js.embedded.html
-      escape: '{{script_close_lookahead}}'
-
   script-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
