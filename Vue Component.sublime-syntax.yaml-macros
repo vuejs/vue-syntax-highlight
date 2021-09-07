@@ -8,6 +8,48 @@ scope: text.html.vue
 file_extensions:
   - vue
 
+variables:
+  # Embedded script and style syntaxes may be wrapped into html comments for
+  # historical reasons. The following patterns match them, while maintaining
+  # correct boundaries of embedded source scopes. That's required to enable
+  # embedded syntax's comment toggling in the first and last line.
+  #
+  # see:
+  # - https://github.com/sublimehq/Packages/issues/2322
+  # - https://github.com/sublimehq/sublime_text/issues/4701
+  script_content_begin: |-
+    (?x:
+    # whitespace followed by opening html comment begin punctuation
+      \s*(<!--)
+    # or any other non-whitespace character ahead
+    | (?=\s*(?!<!--)\S)
+    # or beginning of a line
+    | ^
+    )
+  script_content_end: |-
+    (?x:
+    # optional html comment end punctuation followed by </script> tag
+      (?: (\s*) (-->) \s* )? (?=</(?i:script){{tag_name_break_char}})
+    # or standalone html comment end punctuation in a line
+    |   ^ (\s*) (-->) \s* $
+    )
+  style_content_begin: '{{script_content_begin}}'
+  style_content_end: |-
+    (?x:
+    # optional html comment end punctuation followed by </style> tag
+      (?: (\s*) (-->) \s* )? (?=</(?i:style){{tag_name_break_char}})
+    # or standalone html comment end punctuation in a line
+    |   ^ (\s*) (-->) \s* $
+    )
+  template_content_begin: '{{script_content_begin}}'
+  template_content_end: |-
+    (?x:
+    # optional html comment end punctuation followed by </template> tag
+      (?: (\s*) (-->) \s* )? (?=</(?i:template){{tag_name_break_char}})
+    # or standalone html comment end punctuation in a line
+    |   ^ (\s*) (-->) \s* $
+    )
+
 contexts:
   main:
     - meta_prepend: true
@@ -82,12 +124,47 @@ contexts:
         0:
           meta.string.html string.quoted.single.html
           punctuation.definition.string.end.html
-
     - include: else-pop
+
+  style-close-tag:
+    # for compatibility with ST builds before 4114
+    - match: (</)((?i:style){{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.style.html
+      set:
+        - meta_scope: meta.tag.style.end.html
+        - include: tag-end
 
   style-common:
     - meta_prepend: true
     - include: style-lang-attribute
+
+  style-css:
+    # for compatibility with ST builds before 4114
+    - meta_scope: meta.tag.style.begin.html
+    - include: style-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set:
+        - style-close-tag
+        - style-css-content
+
+  style-css-content:
+    # for compatibility with ST builds before 4114
+    - meta_include_prototype: false
+    - match: '{{style_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.css
+      embed_scope: source.css.embedded.html
+      escape: '{{style_content_end}}'
+      escape_captures:
+        1: source.css.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.css.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
 
   style-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
@@ -115,15 +192,45 @@ contexts:
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
 
+  script-close-tag:
+    # for compatibility with ST builds before 4114
+    - match: (</)((?i:script){{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      set:
+        - meta_scope: meta.tag.script.end.html
+        - include: tag-end
+
   script-common:
     - meta_prepend: true
     - include: script-lang-attribute
 
+  script-javascript:
+    # for compatibility with ST builds before 4114
+    - meta_scope: meta.tag.script.begin.html
+    - include: script-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set:
+        - script-close-tag
+        - script-javascript-content
+
   script-javascript-content:
-    - match: (?=\S)
+    # for compatibility with ST builds before 4114
+    - meta_include_prototype: false
+    - match: '{{script_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
       embed: scope:source.js
       embed_scope: source.js.embedded.html
-      escape: '{{script_close_lookahead}}'
+      escape: '{{script_content_end}}'
+      escape_captures:
+        1: source.js.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.js.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
 
   script-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
