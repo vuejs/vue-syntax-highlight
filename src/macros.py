@@ -20,13 +20,27 @@ def embed_language_in_tag(tag, match, embed):
                     match='>',
                     scope='punctuation.definition.tag.end.html',
                     set=[
-                        _rule(include='%s-close-tag' % tag),
-                        _rule(
-                            match=r'',
-                            embed=('scope:%s' % embed),
-                            embed_scope=('%s.embedded.html' % embed),
-                            escape=r'(?i)(?=(?:-->\s*)?</%s{{tag_name_break_char}})' % tag,
-                        )
+                        [
+                            _rule(include='%s-close-tag' % tag)
+                        ],
+                        [
+                            _rule(
+                                match=r'{{%s_content_begin}}' % tag,
+                                captures={
+                                    1: 'comment.block.html punctuation.definition.comment.begin.html',
+                                },
+                                pop=1,
+                                embed=('scope:%s' % embed),
+                                embed_scope=('%s.embedded.html' % embed),
+                                escape='{{%s_content_end}}' % tag,
+                                escape_captures={
+                                  1: ('%s.embedded.html' % embed),
+                                  2: 'comment.block.html punctuation.definition.comment.end.html',
+                                  3: ('%s.embedded.html' % embed),
+                                  4: 'comment.block.html punctuation.definition.comment.end.html',
+                                },
+                            )
+                        ]
                     ]
                 ),
             ],
