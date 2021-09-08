@@ -3,7 +3,7 @@ name: CI Syntax Tests
 on:
   push:
     branches:
-      - 'master'
+      - 'st4'
     paths:
       - '.github/workflows/ci-syntax-tests.yml'
       - '**.sublime-syntax'
