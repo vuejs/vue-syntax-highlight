@@ -169,15 +169,20 @@ contexts:
   style-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set:
-        - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
-        - match: =
-          scope: punctuation.separator.key-value.html
-          set:
-            - meta_scope: meta.tag.style.begin.html meta.attribute-with-value.html
-            - include: style-lang-decider
-        - match: (?=\S)
-          set: style-css
+      set: style-lang-attribute-assignment
+
+  style-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: style-lang-attribute-value
+    - match: (?=\S)
+      set: style-css
+
+  style-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.style.begin.html meta.attribute-with-value.html
+    - include: style-lang-decider
 
   style-lang-decider:
     - !style_language [ sass, source.sass ]
@@ -235,15 +240,20 @@ contexts:
   script-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set:
-        - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-        - match: =
-          scope: punctuation.separator.key-value.html
-          set:
-            - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-            - include: script-lang-decider
-        - match: (?=\S)
-          set: script-javascript
+      set: script-lang-attribute-assignment
+
+  script-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: script-lang-attribute-value
+    - match: (?=\S)
+      set: script-javascript
+
+  script-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - include: script-lang-decider
 
   script-lang-decider:
     - !script_language [ coffee, source.coffee ]
@@ -284,15 +294,20 @@ contexts:
   template-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
       scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set:
-        - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
-        - match: =
-          scope: punctuation.separator.key-value.html
-          set:
-            - meta_scope: meta.tag.template.begin.html meta.attribute-with-value.html
-            - include: template-lang-decider
-        - match: (?=\S)
-          set: template-mustache
+      set: template-lang-attribute-assignment
+
+  template-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: template-lang-attribute-value
+    - match: (?=\S)
+      set: template-mustache
+
+  template-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.template.begin.html meta.attribute-with-value.html
+    - include: template-lang-decider
 
   template-lang-decider:
     - !template_language [ jade, text.jade ]
