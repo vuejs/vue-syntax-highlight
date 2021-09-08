@@ -51,30 +51,53 @@ variables:
     )
 
 contexts:
+
+###[ HTML TAGS ]##############################################################
+
+  prototype:
+    - meta_prepend: true
+    - include: mustache-templates
+
   main:
     - meta_prepend: true
     - include: template-tag
-    - include: mustache-expression
-
-  mustache-expression:
-    - match: '(?={{)'
-      set:
-        - meta_scope: meta.template.vue
-        - match: '{{'
-          scope: punctuation.definition.template.begin.html
-          embed: scope:source.js
-          embed_scope: source.js.embedded.vue
-          escape: '}}'
-          escape_captures:
-            0: meta.template.vue punctuation.definition.template.end.html
-        - match: ''
-          pop: true
 
 ###[ TAG ATTRIBUTES ]#########################################################
 
   tag-attributes:
     - meta_prepend: true
     - include: vue-directive
+
+  tag-attribute-value-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+  strings-common-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+###[ MUSTAGE TEMPLATES ]######################################################
+
+  mustache-interpolations:
+    - match: (?={{)
+      push: mustache-interpolation-content
+
+  mustache-interpolation-content:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.html
+    - include: mustache-templates
+    - include: immediately-pop
+
+  mustache-templates:
+    - match: '{{'
+      scope: meta.template.vue punctuation.definition.template.begin.html
+      embed: scope:source.js
+      embed_scope: meta.template.vue source.js.embedded.vue
+      escape: '}}'
+      escape_captures:
+        0: meta.template.vue punctuation.definition.template.end.html
+
+###[ VUE DIRECTIVES ]#########################################################
 
   vue-directive:
     - match: (?=v-)
@@ -271,6 +294,12 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
+    - match: (</)((?i:template))(>)
+      scope: meta.tag.template.end.html
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.template.html
+        3: punctuation.definition.tag.end.html
 
   template-close-tag:
     - match: (</)((?i:template))(>)
@@ -291,10 +320,7 @@ contexts:
     - include: template-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
-      set:
-        - include: template-close-tag
-        - match: ''
-          push: main
+      pop: 1
 
   template-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}

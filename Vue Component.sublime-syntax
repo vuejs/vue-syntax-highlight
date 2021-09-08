@@ -50,30 +50,53 @@ variables:
     )
 
 contexts:
+
+###[ HTML TAGS ]##############################################################
+
+  prototype:
+    - meta_prepend: true
+    - include: mustache-templates
+
   main:
     - meta_prepend: true
     - include: template-tag
-    - include: mustache-expression
-
-  mustache-expression:
-    - match: (?={{)
-      set:
-        - meta_scope: meta.template.vue
-        - match: '{{'
-          scope: punctuation.definition.template.begin.html
-          embed: scope:source.js
-          embed_scope: source.js.embedded.vue
-          escape: '}}'
-          escape_captures:
-            0: meta.template.vue punctuation.definition.template.end.html
-        - match: ''
-          pop: true
 
 ###[ TAG ATTRIBUTES ]#########################################################
 
   tag-attributes:
     - meta_prepend: true
     - include: vue-directive
+
+  tag-attribute-value-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+  strings-common-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+###[ MUSTAGE TEMPLATES ]######################################################
+
+  mustache-interpolations:
+    - match: (?={{)
+      push: mustache-interpolation-content
+
+  mustache-interpolation-content:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.html
+    - include: mustache-templates
+    - include: immediately-pop
+
+  mustache-templates:
+    - match: '{{'
+      scope: meta.template.vue punctuation.definition.template.begin.html
+      embed: scope:source.js
+      embed_scope: meta.template.vue source.js.embedded.vue
+      escape: '}}'
+      escape_captures:
+        0: meta.template.vue punctuation.definition.template.end.html
+
+###[ VUE DIRECTIVES ]#########################################################
 
   vue-directive:
     - match: (?=v-)
@@ -180,13 +203,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.sass.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.sass.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.sass.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.sass.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -202,13 +225,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.scss.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.scss.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.scss.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.scss.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -224,13 +247,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.stylus.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.stylus.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.stylus.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.stylus.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -246,13 +269,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.sss.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.sss.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.sss.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.sss.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -268,13 +291,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.postcss.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.postcss.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.postcss.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.postcss.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -290,13 +313,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: style-close-tag
-                -   - embed_scope: source.less.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.less.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.less.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{style_content_begin}}'
+                      embed_scope: source.less.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -379,13 +402,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: script-close-tag
-                -   - embed_scope: source.coffee.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.coffee.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.coffee.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{script_content_begin}}'
+                      embed_scope: source.coffee.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -401,13 +424,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: script-close-tag
-                -   - embed_scope: source.livescript.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.livescript.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.livescript.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{script_content_begin}}'
+                      embed_scope: source.livescript.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -423,13 +446,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: script-close-tag
-                -   - embed_scope: source.ts.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: source.ts.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: source.ts.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{script_content_begin}}'
+                      embed_scope: source.ts.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -451,6 +474,12 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
+    - match: (</)((?i:template))(>)
+      scope: meta.tag.template.end.html
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.template.html
+        3: punctuation.definition.tag.end.html
 
   template-close-tag:
     - match: (</)((?i:template))(>)
@@ -471,10 +500,7 @@ contexts:
     - include: template-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
-      set:
-        - include: template-close-tag
-        - match: ''
-          push: main
+      pop: 1
 
   template-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
@@ -503,13 +529,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: template-close-tag
-                -   - embed_scope: text.jade.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: text.jade.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: text.jade.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{template_content_begin}}'
+                      embed_scope: text.jade.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -525,13 +551,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: template-close-tag
-                -   - embed_scope: text.pug.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: text.pug.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: text.pug.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{template_content_begin}}'
+                      embed_scope: text.pug.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
@@ -547,13 +573,13 @@ contexts:
               scope: punctuation.definition.tag.end.html
               set:
                 -   - include: template-close-tag
-                -   - embed_scope: text.slm.embedded.html
-                      escape_captures:
+                -   - escape_captures:
                         1: text.slm.embedded.html
                         2: comment.block.html punctuation.definition.comment.end.html
                         3: text.slm.embedded.html
                         4: comment.block.html punctuation.definition.comment.end.html
                       match: '{{template_content_begin}}'
+                      embed_scope: text.slm.embedded.html
                       captures:
                         1: comment.block.html punctuation.definition.comment.begin.html
                       pop: 1
