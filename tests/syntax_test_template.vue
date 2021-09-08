@@ -1,5 +1,13 @@
 // SYNTAX TEST "Vue Component.sublime-syntax"
 
+    <template>
+// <- text.html.vue - text text
+//  ^^^^^^^^^^ meta.tag.template.begin.html
+
+    </template>
+// <- text.html.vue - text text
+//  ^^^^^^^^^^^ meta.tag.template.end.html
+
 
     <template lang="jade"> foo </template>
 //  ^^^^^^^^^^^^^^^^^^^^^^ meta.tag - source
