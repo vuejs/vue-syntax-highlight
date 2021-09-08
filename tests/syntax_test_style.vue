@@ -125,6 +125,13 @@
 //  ^^^^^^^^ meta.tag - source
 
 
+    <style lang="less">  </style>
+//  ^^^^^^^^^^^^^^^^^^^ meta.tag - meta.tag meta.tag - source
+//         ^^^^^^^^^^^ meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value
+//                     ^^ source.less.embedded.html - meta.tag
+//                       ^^^^^^^^ meta.tag - source
+
+
     <style lang="less">
 
 // <- source.less.embedded.html - source source
