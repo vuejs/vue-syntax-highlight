@@ -268,7 +268,6 @@ contexts:
   template-tag:
     - match: (<)((?i:template)){{tag_name_break}}
       captures:
-        0: meta.tag.template.begin.html
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
@@ -285,12 +284,10 @@ contexts:
   template-common:
     - include: template-lang-attribute
     - include: tag-attributes
-    - match: '/>'
-      scope: punctuation.definition.tag.end.html
-      pop: true
+    - include: tag-end-self-closing
 
   template-mustache:
-    - meta_content_scope: meta.tag.template.begin.html
+    - meta_scope: meta.tag.template.begin.html
     - include: template-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
