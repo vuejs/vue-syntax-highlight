@@ -81,6 +81,8 @@ contexts:
         2: entity.name.tag.template.html
       push: template-mustache
 
+###[ TAG ATTRIBUTES ]#########################################################
+
   vue-directive:
     - match: (?=v-)
       push:
@@ -116,6 +118,8 @@ contexts:
       escape_captures:
         0: meta.string.html string.quoted.single.html punctuation.definition.string.end.html
     - include: else-pop
+
+###[ STYLE TAG ]##############################################################
 
   style-close-tag:
     # for compatibility with ST builds before 4114
@@ -314,6 +318,8 @@ contexts:
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
 
+###[ SCRIPT TAG ]#############################################################
+
   script-close-tag:
     # for compatibility with ST builds before 4114
     - match: (</)((?i:script){{tag_name_break}})
@@ -444,6 +450,8 @@ contexts:
         - script-javascript
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
+
+###[ TEMPLATE TAG ]###########################################################
 
   template-common:
     - include: template-lang-attribute
