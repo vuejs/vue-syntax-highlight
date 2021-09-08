@@ -1,4 +1,4 @@
-// SYNTAX TEST "Packages/Vue/Vue Component.sublime-syntax"
+// SYNTAX TEST "Vue Component.sublime-syntax"
 
 
     <script> var i = 0; </script>
