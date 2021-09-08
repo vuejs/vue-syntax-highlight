@@ -83,9 +83,9 @@
 
 
     <style type="text/css"> <!--
-//  ^^^^^^^ meta.tag - meta.tag meta.tag - meta.attribute-with-value - source
-//         ^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.html - meta.tag meta.tag - meta.attribute-with-value meta.attribute-with-value - source
-//                        ^ meta.tag - meta.tag meta.tag - meta.attribute-with-value - source
+//  ^^^^^^^ meta.tag - meta.attribute-with-value - source
+//         ^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value - source
+//                        ^ meta.tag - meta.attribute-with-value - source
 //                         ^^^^^ - meta.tag - source
 //   ^^^^^ entity.name.tag
 //         ^^^^ entity.other.attribute-name.html
@@ -111,10 +111,10 @@
 
     <style
     type
-//  ^^^^ meta.tag meta.attribute-with-value.html - meta.tag meta.tag - meta.attribute-with-value meta.attribute-with-value
+//  ^^^^ meta.tag meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value
     =
     tExT/cSs>
-//  ^^^^^^^^ meta.tag meta.attribute-with-value.html - meta.tag meta.tag - meta.attribute-with-value meta.attribute-with-value
+//  ^^^^^^^^ meta.tag meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value
 
     h1 {}
 // <- source.css.embedded.html - source source
@@ -126,7 +126,7 @@
 
 
     <style lang="less">  </style>
-//  ^^^^^^^^^^^^^^^^^^^ meta.tag - meta.tag meta.tag - source
+//  ^^^^^^^^^^^^^^^^^^^ meta.tag - source
 //         ^^^^^^^^^^^ meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value
 //                     ^^ source.less.embedded.html - meta.tag
 //                       ^^^^^^^^ meta.tag - source
