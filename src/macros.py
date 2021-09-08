@@ -14,7 +14,7 @@ def embed_language_in_tag(tag, match, embed):
         match=r'(?i)(?={0}{{{{unquoted_attribute_break}}}}|\'{0}\'|"{0}")'.format(match),
         set=[
             [
-                _rule(meta_content_scope='meta.tag.%s.begin.html' % tag),
+                _rule(meta_scope='meta.tag.%s.begin.html' % tag),
                 _rule(include='%s-common' % tag),
                 _rule(
                     match='>',

@@ -131,6 +131,12 @@
 //  ^^^^^^^^^ meta.tag - source
 
 
+    <script lang="coffee">  </script>
+//  ^^^^^^^^^^^^^^^^^^^^^^ meta.tag - meta.tag meta.tag - source
+//          ^^^^^^^^^^^^^ meta.attribute-with-value.html - meta.attribute-with-value meta.attribute-with-value
+//                        ^^ source.coffee.embedded.html - meta.tag
+//                          ^^^^^^^^^ meta.tag - source
+
     <script lang="coffee">
 
 // <- source.coffee.embedded.html - source source

@@ -174,7 +174,7 @@ contexts:
         - match: =
           scope: punctuation.separator.key-value.html
           set:
-            - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
+            - meta_scope: meta.tag.style.begin.html meta.attribute-with-value.html
             - include: style-lang-decider
         - match: (?=\S)
           set: style-css
@@ -240,7 +240,7 @@ contexts:
         - match: =
           scope: punctuation.separator.key-value.html
           set:
-            - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+            - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
             - include: script-lang-decider
         - match: (?=\S)
           set: script-javascript
@@ -289,7 +289,7 @@ contexts:
         - match: =
           scope: punctuation.separator.key-value.html
           set:
-            - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
+            - meta_scope: meta.tag.template.begin.html meta.attribute-with-value.html
             - include: template-lang-decider
         - match: (?=\S)
           set: template-mustache
