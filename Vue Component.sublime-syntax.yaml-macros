@@ -1,10 +1,12 @@
 %YAML 1.2
 %TAG ! tag:yaml-macros:src.macros:
 ---
-extends: Packages/HTML/HTML.sublime-syntax
 name: Vue Component
-version: 2
 scope: text.html.vue
+version: 2
+
+extends: Packages/HTML/HTML.sublime-syntax
+
 file_extensions:
   - vue
 
