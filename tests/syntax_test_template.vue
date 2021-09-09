@@ -8,6 +8,9 @@
 // <- text.html.vue - text text
 //  ^^^^^^^^^^^ meta.tag.template.end.html
 
+    </template><!-- stray template close tag -->
+// <- text.html.vue - text text
+//  ^^^^^^^^^^^ meta.tag.template.end.html
 
     <template lang="jade"> foo </template>
 //  ^^^^^^^^^^^^^^^^^^^^^^ meta.tag - source

@@ -58,8 +58,10 @@ contexts:
     - meta_prepend: true
     - include: mustache-templates
 
-  main:
+  tag-html:
     - meta_prepend: true
+    - include: script-tag
+    - include: style-tag
     - include: template-tag
 
 ###[ TAG ATTRIBUTES ]#########################################################
@@ -158,15 +160,22 @@ contexts:
 
 ###[ STYLE TAG ]##############################################################
 
-  style-close-tag:
+  style-tag:
     # for compatibility with ST builds before 4114
+    - match: (<)((?i:style)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.style.html
+      push: style-css
     - match: (</)((?i:style){{tag_name_break}})
       captures:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.style.html
-      set:
-        - meta_scope: meta.tag.style.end.html
-        - include: tag-end
+      push: style-close-tag-content
+
+  style-close-tag-content:
+    - meta_scope: meta.tag.style.end.html
+    - include: tag-end
 
   style-common:
     - meta_prepend: true
@@ -178,9 +187,7 @@ contexts:
     - include: style-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
-      set:
-        - style-close-tag
-        - style-css-content
+      set: style-css-content
 
   style-css-content:
     # for compatibility with ST builds before 4114
@@ -231,15 +238,22 @@ contexts:
 
 ###[ SCRIPT TAG ]#############################################################
 
-  script-close-tag:
+  script-tag:
     # for compatibility with ST builds before 4114
+    - match: (<)((?i:script)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      push: script-javascript
     - match: (</)((?i:script){{tag_name_break}})
       captures:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.script.html
-      set:
-        - meta_scope: meta.tag.script.end.html
-        - include: tag-end
+      push: script-close-tag-content
+
+  script-close-tag-content:
+    - meta_scope: meta.tag.script.end.html
+    - include: tag-end
 
   script-common:
     - meta_prepend: true
@@ -251,9 +265,7 @@ contexts:
     - include: script-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
-      set:
-        - script-close-tag
-        - script-javascript-content
+      set: script-javascript-content
 
   script-javascript-content:
     # for compatibility with ST builds before 4114
@@ -307,21 +319,16 @@ contexts:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
       push: template-mustache
-    - match: (</)((?i:template))(>)
-      scope: meta.tag.template.end.html
+    - match: (</)((?i:template))
       captures:
         1: punctuation.definition.tag.begin.html
         2: entity.name.tag.template.html
         3: punctuation.definition.tag.end.html
+      push: template-tag-content
 
-  template-close-tag:
-    - match: (</)((?i:template))(>)
-      scope: meta.tag.template.end.html
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.template.html
-        3: punctuation.definition.tag.end.html
-      pop: true
+  template-tag-content:
+    - meta_scope: meta.tag.template.end.html
+    - include: tag-end
 
   template-common:
     - include: template-lang-attribute

@@ -1,5 +1,7 @@
 // SYNTAX TEST "Vue Component.sublime-syntax"
 
+    </script>
+//  ^^^^^^^^^ meta.tag.script.end.html
 
     <script> var i = 0; </script>
 //  ^^^^^^^^ meta.tag - source
