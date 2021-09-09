@@ -521,6 +521,10 @@ contexts:
     - meta_prepend: true
     - include: vue-directive
 
+  tag-generic-attribute-value:
+    - meta_prepend: true
+    - meta_include_prototype: false
+
   tag-attribute-value-content:
     - meta_prepend: true
     - include: mustache-interpolations
