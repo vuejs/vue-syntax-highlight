@@ -246,9 +246,7 @@ contexts:
   template-mustache:
     - meta_scope: meta.tag.template.begin.html
     - include: template-common
-    - match: '>'
-      scope: punctuation.definition.tag.end.html
-      pop: 1
+    - include: tag-end
 
   template-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
