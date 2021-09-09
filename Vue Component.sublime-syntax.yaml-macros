@@ -282,6 +282,26 @@ contexts:
     - meta_prepend: true
     - include: vue-directive
 
+  tag-class-attribute-value:
+    # for compatibility with ST builds before 4114
+    - meta_prepend: true
+    - meta_include_prototype: false
+
+  tag-generic-attribute-value:
+    # for compatibility with ST builds before 4114
+    - meta_prepend: true
+    - meta_include_prototype: false
+
+  tag-href-attribute-value:
+    # for compatibility with ST builds before 4114
+    - meta_prepend: true
+    - meta_include_prototype: false
+
+  tag-id-attribute-value:
+    # for compatibility with ST builds before 4114
+    - meta_prepend: true
+    - meta_include_prototype: false
+
   tag-attribute-value-content:
     - meta_prepend: true
     - include: mustache-interpolations
