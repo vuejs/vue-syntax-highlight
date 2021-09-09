@@ -63,87 +63,140 @@ contexts:
     - include: style-tag
     - include: template-tag
 
-###[ TAG ATTRIBUTES ]#########################################################
+###[ SCRIPT TAG ]#############################################################
 
-  tag-attributes:
+  script-tag:
+    # for compatibility with ST builds before 4114
+    - match: (<)((?i:script)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      push: script-javascript
+    - match: (</)((?i:script){{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      push: script-close-tag-content
+
+  script-close-tag-content:
+    - meta_scope: meta.tag.script.end.html
+    - include: tag-end
+
+  script-common:
     - meta_prepend: true
-    - include: vue-directive
+    - include: script-lang-attribute
 
-  tag-attribute-value-content:
-    - meta_prepend: true
-    - include: mustache-interpolations
+  script-javascript:
+    # for compatibility with ST builds before 4114
+    - meta_scope: meta.tag.script.begin.html
+    - include: script-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set: script-javascript-content
 
-  strings-common-content:
-    - meta_prepend: true
-    - include: mustache-interpolations
-
-###[ MUSTAGE TEMPLATES ]######################################################
-
-  mustache-interpolations:
-    - match: (?={{)
-      push: mustache-interpolation-content
-
-  mustache-interpolation-content:
-    - clear_scopes: 1
-    - meta_scope: meta.interpolation.html
-    - include: mustache-templates
-    - include: immediately-pop
-
-  mustache-templates:
-    - match: '{{'
-      scope: meta.template.vue punctuation.definition.template.begin.html
-      embed: scope:source.js
-      embed_scope: meta.template.vue source.js.embedded.vue
-      escape: '}}'
-      escape_captures:
-        0: meta.template.vue punctuation.definition.template.end.html
-
-###[ VUE DIRECTIVES ]#########################################################
-
-  vue-directive:
-    - match: (?=v-)
-      push:
-        - vue-directive-meta
-        - vue-directive-assignment
-        - tag-generic-attribute-name
-    - match: (?::|@)
-      scope: punctuation.definition.attribute.html
-      push:
-        - vue-directive-meta
-        - vue-directive-assignment
-        - tag-generic-attribute-name
-
-  vue-directive-meta:
+  script-javascript-content:
+    # for compatibility with ST builds before 4114
     - meta_include_prototype: false
-    - meta_scope: meta.attribute-with-value.directive.html
-    - include: immediately-pop
+    - match: '{{script_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.js
+      embed_scope: source.js.embedded.html
+      escape: '{{script_content_end}}'
+      escape_captures:
+        1: source.js.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.js.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
 
-  vue-directive-assignment:
+  script-lang-attribute:
+    - match: (?i:lang){{attribute_name_break}}
+      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+      set: script-lang-attribute-assignment
+
+  script-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
     - match: =
       scope: punctuation.separator.key-value.html
-      set: vue-directive-value
-    - include: else-pop
+      set: script-lang-attribute-value
+    - match: (?=\S)
+      set: script-javascript
 
-  vue-directive-value:
-    - match: \"
-      scope: meta.string.html string.quoted.double.html punctuation.definition.string.begin.html
-      pop: true
-      embed: scope:source.js
-      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
-      escape: \"
-      escape_captures:
-        0: meta.attribute-with-value.directive.html meta.string.html string.quoted.double.html
-          punctuation.definition.string.end.html
-    - match: \'
-      scope: meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
-      pop: true
-      embed: scope:source.js
-      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
-      escape: \'
-      escape_captures:
-        0: meta.attribute-with-value.directive.html meta.string.html string.quoted.single.html
-          punctuation.definition.string.end.html
-    - include: else-pop
+  script-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - include: script-lang-decider
+
+  script-lang-decider:
+    - match: (?i)(?=coffee{{unquoted_attribute_break}}|\'coffee\'|"coffee")
+      set:
+        -   - meta_scope: meta.tag.script.begin.html
+            - include: script-common
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - embed_scope: source.coffee.embedded.html
+                  match: '{{script_content_begin}}'
+                  escape_captures:
+                    1: source.coffee.embedded.html
+                    2: comment.block.html punctuation.definition.comment.end.html
+                    3: source.coffee.embedded.html
+                    4: comment.block.html punctuation.definition.comment.end.html
+                  captures:
+                    1: comment.block.html punctuation.definition.comment.begin.html
+                  pop: 1
+                  embed: scope:source.coffee
+                  escape: '{{script_content_end}}'
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+    - match: (?i)(?=livescript{{unquoted_attribute_break}}|\'livescript\'|"livescript")
+      set:
+        -   - meta_scope: meta.tag.script.begin.html
+            - include: script-common
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - embed_scope: source.livescript.embedded.html
+                  match: '{{script_content_begin}}'
+                  escape_captures:
+                    1: source.livescript.embedded.html
+                    2: comment.block.html punctuation.definition.comment.end.html
+                    3: source.livescript.embedded.html
+                    4: comment.block.html punctuation.definition.comment.end.html
+                  captures:
+                    1: comment.block.html punctuation.definition.comment.begin.html
+                  pop: 1
+                  embed: scope:source.livescript
+                  escape: '{{script_content_end}}'
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+    - match: (?i)(?=ts{{unquoted_attribute_break}}|\'ts\'|"ts")
+      set:
+        -   - meta_scope: meta.tag.script.begin.html
+            - include: script-common
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - embed_scope: source.ts.embedded.html
+                  match: '{{script_content_begin}}'
+                  escape_captures:
+                    1: source.ts.embedded.html
+                    2: comment.block.html punctuation.definition.comment.end.html
+                    3: source.ts.embedded.html
+                    4: comment.block.html punctuation.definition.comment.end.html
+                  captures:
+                    1: comment.block.html punctuation.definition.comment.begin.html
+                  pop: 1
+                  embed: scope:source.ts
+                  escape: '{{script_content_end}}'
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+    - match: (?=\S)
+      set:
+        - script-javascript
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
 
 ###[ STYLE TAG ]##############################################################
 
@@ -343,141 +396,6 @@ contexts:
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
 
-###[ SCRIPT TAG ]#############################################################
-
-  script-tag:
-    # for compatibility with ST builds before 4114
-    - match: (<)((?i:script)){{tag_name_break}}
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.script.html
-      push: script-javascript
-    - match: (</)((?i:script){{tag_name_break}})
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.script.html
-      push: script-close-tag-content
-
-  script-close-tag-content:
-    - meta_scope: meta.tag.script.end.html
-    - include: tag-end
-
-  script-common:
-    - meta_prepend: true
-    - include: script-lang-attribute
-
-  script-javascript:
-    # for compatibility with ST builds before 4114
-    - meta_scope: meta.tag.script.begin.html
-    - include: script-common
-    - match: '>'
-      scope: punctuation.definition.tag.end.html
-      set: script-javascript-content
-
-  script-javascript-content:
-    # for compatibility with ST builds before 4114
-    - meta_include_prototype: false
-    - match: '{{script_content_begin}}'
-      captures:
-        1: comment.block.html punctuation.definition.comment.begin.html
-      pop: 1  # make sure to match only once
-      embed: scope:source.js
-      embed_scope: source.js.embedded.html
-      escape: '{{script_content_end}}'
-      escape_captures:
-        1: source.js.embedded.html
-        2: comment.block.html punctuation.definition.comment.end.html
-        3: source.js.embedded.html
-        4: comment.block.html punctuation.definition.comment.end.html
-
-  script-lang-attribute:
-    - match: (?i:lang){{attribute_name_break}}
-      scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set: script-lang-attribute-assignment
-
-  script-lang-attribute-assignment:
-    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-    - match: =
-      scope: punctuation.separator.key-value.html
-      set: script-lang-attribute-value
-    - match: (?=\S)
-      set: script-javascript
-
-  script-lang-attribute-value:
-    - meta_include_prototype: false
-    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-    - include: script-lang-decider
-
-  script-lang-decider:
-    - match: (?i)(?=coffee{{unquoted_attribute_break}}|\'coffee\'|"coffee")
-      set:
-        -   - meta_scope: meta.tag.script.begin.html
-            - include: script-common
-            - match: '>'
-              scope: punctuation.definition.tag.end.html
-              set:
-                - embed_scope: source.coffee.embedded.html
-                  match: '{{script_content_begin}}'
-                  escape_captures:
-                    1: source.coffee.embedded.html
-                    2: comment.block.html punctuation.definition.comment.end.html
-                    3: source.coffee.embedded.html
-                    4: comment.block.html punctuation.definition.comment.end.html
-                  captures:
-                    1: comment.block.html punctuation.definition.comment.begin.html
-                  pop: 1
-                  embed: scope:source.coffee
-                  escape: '{{script_content_end}}'
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-    - match: (?i)(?=livescript{{unquoted_attribute_break}}|\'livescript\'|"livescript")
-      set:
-        -   - meta_scope: meta.tag.script.begin.html
-            - include: script-common
-            - match: '>'
-              scope: punctuation.definition.tag.end.html
-              set:
-                - embed_scope: source.livescript.embedded.html
-                  match: '{{script_content_begin}}'
-                  escape_captures:
-                    1: source.livescript.embedded.html
-                    2: comment.block.html punctuation.definition.comment.end.html
-                    3: source.livescript.embedded.html
-                    4: comment.block.html punctuation.definition.comment.end.html
-                  captures:
-                    1: comment.block.html punctuation.definition.comment.begin.html
-                  pop: 1
-                  embed: scope:source.livescript
-                  escape: '{{script_content_end}}'
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-    - match: (?i)(?=ts{{unquoted_attribute_break}}|\'ts\'|"ts")
-      set:
-        -   - meta_scope: meta.tag.script.begin.html
-            - include: script-common
-            - match: '>'
-              scope: punctuation.definition.tag.end.html
-              set:
-                - embed_scope: source.ts.embedded.html
-                  match: '{{script_content_begin}}'
-                  escape_captures:
-                    1: source.ts.embedded.html
-                    2: comment.block.html punctuation.definition.comment.end.html
-                    3: source.ts.embedded.html
-                    4: comment.block.html punctuation.definition.comment.end.html
-                  captures:
-                    1: comment.block.html punctuation.definition.comment.begin.html
-                  pop: 1
-                  embed: scope:source.ts
-                  escape: '{{script_content_end}}'
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-    - match: (?=\S)
-      set:
-        - script-javascript
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-
 ###[ TEMPLATE TAG ]###########################################################
 
   template-tag:
@@ -596,3 +514,85 @@ contexts:
         - template-mustache
         - tag-generic-attribute-meta
         - tag-generic-attribute-value
+
+###[ TAG ATTRIBUTES ]#########################################################
+
+  tag-attributes:
+    - meta_prepend: true
+    - include: vue-directive
+
+  tag-attribute-value-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+  strings-common-content:
+    - meta_prepend: true
+    - include: mustache-interpolations
+
+###[ MUSTAGE TEMPLATES ]######################################################
+
+  mustache-interpolations:
+    - match: (?={{)
+      push: mustache-interpolation-content
+
+  mustache-interpolation-content:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.html
+    - include: mustache-templates
+    - include: immediately-pop
+
+  mustache-templates:
+    - match: '{{'
+      scope: meta.template.vue punctuation.definition.template.begin.html
+      embed: scope:source.js
+      embed_scope: meta.template.vue source.js.embedded.vue
+      escape: '}}'
+      escape_captures:
+        0: meta.template.vue punctuation.definition.template.end.html
+
+###[ VUE DIRECTIVES ]#########################################################
+
+  vue-directive:
+    - match: (?=v-)
+      push:
+        - vue-directive-meta
+        - vue-directive-assignment
+        - tag-generic-attribute-name
+    - match: (?::|@)
+      scope: punctuation.definition.attribute.html
+      push:
+        - vue-directive-meta
+        - vue-directive-assignment
+        - tag-generic-attribute-name
+
+  vue-directive-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.attribute-with-value.directive.html
+    - include: immediately-pop
+
+  vue-directive-assignment:
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: vue-directive-value
+    - include: else-pop
+
+  vue-directive-value:
+    - match: \"
+      scope: meta.string.html string.quoted.double.html punctuation.definition.string.begin.html
+      pop: true
+      embed: scope:source.js
+      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
+      escape: \"
+      escape_captures:
+        0: meta.attribute-with-value.directive.html meta.string.html string.quoted.double.html
+          punctuation.definition.string.end.html
+    - match: \'
+      scope: meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
+      pop: true
+      embed: scope:source.js
+      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
+      escape: \'
+      escape_captures:
+        0: meta.attribute-with-value.directive.html meta.string.html string.quoted.single.html
+          punctuation.definition.string.end.html
+    - include: else-pop
