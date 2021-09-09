@@ -64,6 +64,218 @@ contexts:
     - include: style-tag
     - include: template-tag
 
+###[ SCRIPT TAG ]#############################################################
+
+  script-tag:
+    # for compatibility with ST builds before 4114
+    - match: (<)((?i:script)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      push: script-javascript
+    - match: (</)((?i:script){{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.script.html
+      push: script-close-tag-content
+
+  script-close-tag-content:
+    - meta_scope: meta.tag.script.end.html
+    - include: tag-end
+
+  script-common:
+    - meta_prepend: true
+    - include: script-lang-attribute
+
+  script-javascript:
+    # for compatibility with ST builds before 4114
+    - meta_scope: meta.tag.script.begin.html
+    - include: script-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set: script-javascript-content
+
+  script-javascript-content:
+    # for compatibility with ST builds before 4114
+    - meta_include_prototype: false
+    - match: '{{script_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.js
+      embed_scope: source.js.embedded.html
+      escape: '{{script_content_end}}'
+      escape_captures:
+        1: source.js.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.js.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
+
+  script-lang-attribute:
+    - match: (?i:lang){{attribute_name_break}}
+      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+      set: script-lang-attribute-assignment
+
+  script-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: script-lang-attribute-value
+    - match: (?=\S)
+      set: script-javascript
+
+  script-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - include: script-lang-decider
+
+  script-lang-decider:
+    - !script_language [ coffee, source.coffee ]
+    - !script_language [ livescript, source.livescript ]
+    - !script_language [ ts, source.ts ]
+    - match: (?=\S)
+      set:
+        - script-javascript
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+
+###[ STYLE TAG ]##############################################################
+
+  style-tag:
+    # for compatibility with ST builds before 4114
+    - match: (<)((?i:style)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.style.html
+      push: style-css
+    - match: (</)((?i:style){{tag_name_break}})
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.style.html
+      push: style-close-tag-content
+
+  style-close-tag-content:
+    - meta_scope: meta.tag.style.end.html
+    - include: tag-end
+
+  style-common:
+    - meta_prepend: true
+    - include: style-lang-attribute
+
+  style-css:
+    # for compatibility with ST builds before 4114
+    - meta_scope: meta.tag.style.begin.html
+    - include: style-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set: style-css-content
+
+  style-css-content:
+    # for compatibility with ST builds before 4114
+    - meta_include_prototype: false
+    - match: '{{style_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.css
+      embed_scope: source.css.embedded.html
+      escape: '{{style_content_end}}'
+      escape_captures:
+        1: source.css.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.css.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
+
+  style-lang-attribute:
+    - match: (?i:lang){{attribute_name_break}}
+      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+      set: style-lang-attribute-assignment
+
+  style-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: style-lang-attribute-value
+    - match: (?=\S)
+      set: style-css
+
+  style-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.style.begin.html meta.attribute-with-value.html
+    - include: style-lang-decider
+
+  style-lang-decider:
+    - !style_language [ sass, source.sass ]
+    - !style_language [ scss, source.scss ]
+    - !style_language [ stylus, source.stylus ]
+    - !style_language [ postcss\?parser=sugarss, source.sss ]
+    - !style_language [ postcss, source.postcss ]
+    - !style_language [ less, source.less ]
+    - match: (?=\S)
+      set:
+        - style-css
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+
+###[ TEMPLATE TAG ]###########################################################
+
+  template-tag:
+    - match: (<)((?i:template)){{tag_name_break}}
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.template.html
+      push: template-mustache
+    - match: (</)((?i:template))
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: entity.name.tag.template.html
+        3: punctuation.definition.tag.end.html
+      push: template-tag-content
+
+  template-tag-content:
+    - meta_scope: meta.tag.template.end.html
+    - include: tag-end
+
+  template-common:
+    - include: template-lang-attribute
+    - include: tag-attributes
+    - include: tag-end-self-closing
+
+  template-mustache:
+    - meta_scope: meta.tag.template.begin.html
+    - include: template-common
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      pop: 1
+
+  template-lang-attribute:
+    - match: (?i:lang){{attribute_name_break}}
+      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+      set: template-lang-attribute-assignment
+
+  template-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: template-lang-attribute-value
+    - match: (?=\S)
+      set: template-mustache
+
+  template-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.template.begin.html meta.attribute-with-value.html
+    - include: template-lang-decider
+
+  template-lang-decider:
+    - !template_language [ jade, text.jade ]
+    - !template_language [ pug, text.pug ]
+    - !template_language [ slm, text.slm ]
+    - match: (?=\S)
+      set:
+        - template-mustache
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+
 ###[ TAG ATTRIBUTES ]#########################################################
 
   tag-attributes:
@@ -157,215 +369,3 @@ contexts:
           meta.string.html string.quoted.single.html
           punctuation.definition.string.end.html
     - include: else-pop
-
-###[ STYLE TAG ]##############################################################
-
-  style-tag:
-    # for compatibility with ST builds before 4114
-    - match: (<)((?i:style)){{tag_name_break}}
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.style.html
-      push: style-css
-    - match: (</)((?i:style){{tag_name_break}})
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.style.html
-      push: style-close-tag-content
-
-  style-close-tag-content:
-    - meta_scope: meta.tag.style.end.html
-    - include: tag-end
-
-  style-common:
-    - meta_prepend: true
-    - include: style-lang-attribute
-
-  style-css:
-    # for compatibility with ST builds before 4114
-    - meta_scope: meta.tag.style.begin.html
-    - include: style-common
-    - match: '>'
-      scope: punctuation.definition.tag.end.html
-      set: style-css-content
-
-  style-css-content:
-    # for compatibility with ST builds before 4114
-    - meta_include_prototype: false
-    - match: '{{style_content_begin}}'
-      captures:
-        1: comment.block.html punctuation.definition.comment.begin.html
-      pop: 1  # make sure to match only once
-      embed: scope:source.css
-      embed_scope: source.css.embedded.html
-      escape: '{{style_content_end}}'
-      escape_captures:
-        1: source.css.embedded.html
-        2: comment.block.html punctuation.definition.comment.end.html
-        3: source.css.embedded.html
-        4: comment.block.html punctuation.definition.comment.end.html
-
-  style-lang-attribute:
-    - match: (?i:lang){{attribute_name_break}}
-      scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set: style-lang-attribute-assignment
-
-  style-lang-attribute-assignment:
-    - meta_content_scope: meta.tag.style.begin.html meta.attribute-with-value.html
-    - match: =
-      scope: punctuation.separator.key-value.html
-      set: style-lang-attribute-value
-    - match: (?=\S)
-      set: style-css
-
-  style-lang-attribute-value:
-    - meta_include_prototype: false
-    - meta_scope: meta.tag.style.begin.html meta.attribute-with-value.html
-    - include: style-lang-decider
-
-  style-lang-decider:
-    - !style_language [ sass, source.sass ]
-    - !style_language [ scss, source.scss ]
-    - !style_language [ stylus, source.stylus ]
-    - !style_language [ postcss\?parser=sugarss, source.sss ]
-    - !style_language [ postcss, source.postcss ]
-    - !style_language [ less, source.less ]
-    - match: (?=\S)
-      set:
-        - style-css
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-
-###[ SCRIPT TAG ]#############################################################
-
-  script-tag:
-    # for compatibility with ST builds before 4114
-    - match: (<)((?i:script)){{tag_name_break}}
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.script.html
-      push: script-javascript
-    - match: (</)((?i:script){{tag_name_break}})
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.script.html
-      push: script-close-tag-content
-
-  script-close-tag-content:
-    - meta_scope: meta.tag.script.end.html
-    - include: tag-end
-
-  script-common:
-    - meta_prepend: true
-    - include: script-lang-attribute
-
-  script-javascript:
-    # for compatibility with ST builds before 4114
-    - meta_scope: meta.tag.script.begin.html
-    - include: script-common
-    - match: '>'
-      scope: punctuation.definition.tag.end.html
-      set: script-javascript-content
-
-  script-javascript-content:
-    # for compatibility with ST builds before 4114
-    - meta_include_prototype: false
-    - match: '{{script_content_begin}}'
-      captures:
-        1: comment.block.html punctuation.definition.comment.begin.html
-      pop: 1  # make sure to match only once
-      embed: scope:source.js
-      embed_scope: source.js.embedded.html
-      escape: '{{script_content_end}}'
-      escape_captures:
-        1: source.js.embedded.html
-        2: comment.block.html punctuation.definition.comment.end.html
-        3: source.js.embedded.html
-        4: comment.block.html punctuation.definition.comment.end.html
-
-  script-lang-attribute:
-    - match: (?i:lang){{attribute_name_break}}
-      scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set: script-lang-attribute-assignment
-
-  script-lang-attribute-assignment:
-    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-    - match: =
-      scope: punctuation.separator.key-value.html
-      set: script-lang-attribute-value
-    - match: (?=\S)
-      set: script-javascript
-
-  script-lang-attribute-value:
-    - meta_include_prototype: false
-    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
-    - include: script-lang-decider
-
-  script-lang-decider:
-    - !script_language [ coffee, source.coffee ]
-    - !script_language [ livescript, source.livescript ]
-    - !script_language [ ts, source.ts ]
-    - match: (?=\S)
-      set:
-        - script-javascript
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
-
-###[ TEMPLATE TAG ]###########################################################
-
-  template-tag:
-    - match: (<)((?i:template)){{tag_name_break}}
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.template.html
-      push: template-mustache
-    - match: (</)((?i:template))
-      captures:
-        1: punctuation.definition.tag.begin.html
-        2: entity.name.tag.template.html
-        3: punctuation.definition.tag.end.html
-      push: template-tag-content
-
-  template-tag-content:
-    - meta_scope: meta.tag.template.end.html
-    - include: tag-end
-
-  template-common:
-    - include: template-lang-attribute
-    - include: tag-attributes
-    - include: tag-end-self-closing
-
-  template-mustache:
-    - meta_scope: meta.tag.template.begin.html
-    - include: template-common
-    - match: '>'
-      scope: punctuation.definition.tag.end.html
-      pop: 1
-
-  template-lang-attribute:
-    - match: (?i:lang){{attribute_name_break}}
-      scope: meta.attribute-with-value.html entity.other.attribute-name.html
-      set: template-lang-attribute-assignment
-
-  template-lang-attribute-assignment:
-    - meta_content_scope: meta.tag.template.begin.html meta.attribute-with-value.html
-    - match: =
-      scope: punctuation.separator.key-value.html
-      set: template-lang-attribute-value
-    - match: (?=\S)
-      set: template-mustache
-
-  template-lang-attribute-value:
-    - meta_include_prototype: false
-    - meta_scope: meta.tag.template.begin.html meta.attribute-with-value.html
-    - include: template-lang-decider
-
-  template-lang-decider:
-    - !template_language [ jade, text.jade ]
-    - !template_language [ pug, text.pug ]
-    - !template_language [ slm, text.slm ]
-    - match: (?=\S)
-      set:
-        - template-mustache
-        - tag-generic-attribute-meta
-        - tag-generic-attribute-value
