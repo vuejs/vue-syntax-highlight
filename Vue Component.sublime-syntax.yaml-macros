@@ -102,43 +102,56 @@ contexts:
   vue-directive:
     - match: (?=v-)
       push:
+        - vue-directive-meta
         - vue-directive-assignment
         - tag-generic-attribute-name
     - match: (?::|@)
       scope: punctuation.definition.attribute.html
       push:
+        - vue-directive-meta
         - vue-directive-assignment
         - tag-generic-attribute-name
 
+  vue-directive-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.attribute-with-value.directive.html
+    - include: immediately-pop
+
   vue-directive-assignment:
-    - match: '='
+    - match: =
       scope: punctuation.separator.key-value.html
       set: vue-directive-value
     - include: else-pop
 
   vue-directive-value:
-    - match: '"'
+    - match: \"
       scope:
         meta.string.html string.quoted.double.html
         punctuation.definition.string.begin.html
-      embed: scope:source.js
       pop: true
-      embed_scope: meta.string.html source.js.embedded.vue
-      escape: '"'
+      embed: scope:source.js
+      embed_scope:
+        meta.string.html meta.interpolation.html
+        source.js.embedded.html
+      escape: \"
       escape_captures:
         0:
+          meta.attribute-with-value.directive.html
           meta.string.html string.quoted.double.html
           punctuation.definition.string.end.html
-    - match: "'"
+    - match: \'
       scope:
         meta.string.html string.quoted.single.html
         punctuation.definition.string.begin.html
-      embed: scope:source.js
       pop: true
-      embed_scope: meta.string.html source.js.embedded.vue
-      escape: "'"
+      embed: scope:source.js
+      embed_scope:
+        meta.string.html meta.interpolation.html
+        source.js.embedded.html
+      escape: \'
       escape_captures:
         0:
+          meta.attribute-with-value.directive.html
           meta.string.html string.quoted.single.html
           punctuation.definition.string.end.html
     - include: else-pop

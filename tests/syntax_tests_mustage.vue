@@ -38,5 +38,22 @@
 //              ^^^^^^^^^^^ source.js.embedded.vue
 //                         ^^ punctuation.definition.template.end.html - source.js
 
+    <p v-attrib="let i = 0">
+//  ^^^ meta.tag - meta.attribute-with-value
+//     ^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html - meta.string
+//              ^ meta.tag meta.attribute-with-value.directive.html meta.string.html - meta.interpolation
+//               ^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html meta.string.html meta.interpolation.html source.js.embedded.html
+//                        ^ meta.tag meta.attribute-with-value.directive.html meta.string.html - meta.interpolation
+//                         ^ meta.tag - meta.attribute-with-value
+//                          ^ - meta.tag
+
+    <p v-attrib='let i = 0'>
+//  ^^^ meta.tag - meta.attribute-with-value
+//     ^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html - meta.string
+//              ^ meta.tag meta.attribute-with-value.directive.html meta.string.html - meta.interpolation
+//               ^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html meta.string.html meta.interpolation.html source.js.embedded.html
+//                        ^ meta.tag meta.attribute-with-value.directive.html meta.string.html - meta.interpolation
+//                         ^ meta.tag - meta.attribute-with-value
+//                          ^ - meta.tag
 
 </html>
