@@ -344,7 +344,7 @@ contexts:
       scope:
         meta.string.html string.quoted.double.html
         punctuation.definition.string.begin.html
-      pop: true
+      pop: 1
       embed: scope:source.js
       embed_scope:
         meta.string.html meta.interpolation.html
@@ -359,7 +359,7 @@ contexts:
       scope:
         meta.string.html string.quoted.single.html
         punctuation.definition.string.begin.html
-      pop: true
+      pop: 1
       embed: scope:source.js
       embed_scope:
         meta.string.html meta.interpolation.html
