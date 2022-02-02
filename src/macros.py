@@ -15,7 +15,6 @@ def embed_language_in_tag(tag, match, embed):
         set=[
             [
                 _rule(meta_scope='meta.tag.%s.begin.html' % tag),
-                _rule(include='%s-common' % tag),
                 _rule(
                     match='>',
                     scope='punctuation.definition.tag.end.html',
@@ -38,6 +37,7 @@ def embed_language_in_tag(tag, match, embed):
                         )
                     ]
                 ),
+                _rule(include='%s-common' % tag),
             ],
             'tag-generic-attribute-meta',
             'tag-generic-attribute-value',
