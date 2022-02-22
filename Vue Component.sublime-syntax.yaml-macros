@@ -362,8 +362,7 @@ contexts:
       scope:
         meta.string.html string.quoted.double.html
         punctuation.definition.string.begin.html
-      pop: 1
-      embed: scope:source.js
+      embed: scope:source.js#expression-statement
       embed_scope:
         meta.string.html meta.interpolation.html
         source.js.embedded.html
@@ -377,8 +376,7 @@ contexts:
       scope:
         meta.string.html string.quoted.single.html
         punctuation.definition.string.begin.html
-      pop: 1
-      embed: scope:source.js
+      embed: scope:source.js#expression-statement
       embed_scope:
         meta.string.html meta.interpolation.html
         source.js.embedded.html

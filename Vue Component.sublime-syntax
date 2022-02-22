@@ -599,8 +599,7 @@ contexts:
   vue-directive-value:
     - match: \"
       scope: meta.string.html string.quoted.double.html punctuation.definition.string.begin.html
-      pop: 1
-      embed: scope:source.js
+      embed: scope:source.js#expression-statement
       embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
       escape: \"
       escape_captures:
@@ -608,8 +607,7 @@ contexts:
           punctuation.definition.string.end.html
     - match: \'
       scope: meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
-      pop: 1
-      embed: scope:source.js
+      embed: scope:source.js#expression-statement
       embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
       escape: \'
       escape_captures:
