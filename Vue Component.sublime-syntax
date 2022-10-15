@@ -557,7 +557,7 @@ contexts:
 
   mustache-interpolation-content:
     - clear_scopes: 1
-    - meta_scope: meta.interpolation.html
+    - meta_scope: meta.interpolation.vue
     - include: mustache-templates
     - include: immediately-pop
 
@@ -600,7 +600,7 @@ contexts:
     - match: \"
       scope: meta.string.html string.quoted.double.html punctuation.definition.string.begin.html
       embed: scope:source.js#expression-statement
-      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
+      embed_scope: meta.string.html meta.interpolation.vue source.js.embedded.vue
       escape: \"
       escape_captures:
         0: meta.attribute-with-value.directive.html meta.string.html string.quoted.double.html
@@ -608,7 +608,7 @@ contexts:
     - match: \'
       scope: meta.string.html string.quoted.single.html punctuation.definition.string.begin.html
       embed: scope:source.js#expression-statement
-      embed_scope: meta.string.html meta.interpolation.html source.js.embedded.html
+      embed_scope: meta.string.html meta.interpolation.vue source.js.embedded.vue
       escape: \'
       escape_captures:
         0: meta.attribute-with-value.directive.html meta.string.html string.quoted.single.html
