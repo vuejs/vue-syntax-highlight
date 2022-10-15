@@ -339,7 +339,7 @@ contexts:
         - vue-directive-meta
         - vue-directive-assignment
         - tag-generic-attribute-name
-    - match: (?::|@)
+    - match: (?::|@|#)
       scope: punctuation.definition.attribute.html
       push:
         - vue-directive-meta
