@@ -125,4 +125,22 @@
 //                          ^ meta.tag - meta.attribute-with-value
 //                           ^ - meta.tag
 
+    <template #[`content-${variable}`]>
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html
+//            ^ entity.other.attribute-name.html
+//             ^ punctuation.section.interpolation.begin.vue
+//              ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
+//                                   ^ punctuation.definition.string.end.html
+//                                    ^ meta.tag - meta.attribute-with-value
+//                                     ^ - meta.tag
+
+    <template v-slot:[`content-${variable}`]>
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html
+//            ^^^^^^^ entity.other.attribute-name.html
+//                   ^ punctuation.section.interpolation.begin.vue
+//                    ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
+//                                         ^ punctuation.definition.string.end.html
+//                                          ^ meta.tag - meta.attribute-with-value
+//                                           ^ - meta.tag
+
 </html>
