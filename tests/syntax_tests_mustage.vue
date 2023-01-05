@@ -128,19 +128,20 @@
     <template #[`content-${variable}`]>
 //            ^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html
 //            ^ entity.other.attribute-name.html
-//             ^ punctuation.section.interpolation.begin.vue
+//             ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //              ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                   ^ punctuation.definition.string.end.html
+//                                   ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
 //                                    ^ meta.tag - meta.attribute-with-value
 //                                     ^ - meta.tag
 
-    <template v-slot:[`content-${variable}`]>
+    <template v-slot:[`content-${variable}`] >
 //            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.directive.html
 //            ^^^^^^^ entity.other.attribute-name.html
-//                   ^ punctuation.section.interpolation.begin.vue
+//                   ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //                    ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                         ^ punctuation.definition.string.end.html
-//                                          ^ meta.tag - meta.attribute-with-value
-//                                           ^ - meta.tag
+//                                         ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
+//                                          ^ meta.tag - meta.interpolation
+//                                           ^ meta.tag - meta.attribute-with-value
+//                                            ^ - meta.tag
 
 </html>

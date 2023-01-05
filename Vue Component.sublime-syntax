@@ -623,10 +623,10 @@ contexts:
   vue-dynamic-attribute-name:
     - clear_scopes: 1  # clear `entity.other.attribute-name`
     - match: \[
-      scope: punctuation.section.interpolation.begin.vue
+      scope: meta.interpolation.vue punctuation.section.interpolation.begin.vue
       embed: scope:source.js#expression-statement
       embed_scope: meta.interpolation.vue source.js.embedded.vue
       escape: \]
       escape_captures:
-        0: punctuation.definition.string.end.html
-    - include: else-pop
+        0: meta.interpolation.vue punctuation.definition.interpolation.end.vue
+    - include: immediately-pop
