@@ -614,3 +614,20 @@ contexts:
         0: meta.attribute-with-value.directive.html meta.string.html string.quoted.single.html
           punctuation.definition.string.end.html
     - include: else-pop
+
+  tag-generic-attribute-name:
+    - meta_prepend: true
+    # https://vuejs.org/guide/essentials/template-syntax.html#dynamic-arguments
+    - match: (?=\[)
+      push: vue-dynamic-attribute-name
+
+  vue-dynamic-attribute-name:
+    - clear_scopes: 1  # clear `entity.other.attribute-name`
+    - match: \[
+      scope: punctuation.section.interpolation.begin.vue
+      embed: scope:source.js#expression-statement
+      embed_scope: meta.interpolation.vue source.js.embedded.vue
+      escape: \]
+      escape_captures:
+        0: punctuation.definition.string.end.html
+    - include: else-pop
