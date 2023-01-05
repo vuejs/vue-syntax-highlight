@@ -91,10 +91,10 @@ contexts:
   script-javascript:
     # for compatibility with ST builds before 4114
     - meta_scope: meta.tag.script.begin.html
-    - include: script-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
       set: script-javascript-content
+    - include: script-common
 
   script-javascript-content:
     # for compatibility with ST builds before 4114
@@ -226,10 +226,10 @@ contexts:
   style-css:
     # for compatibility with ST builds before 4114
     - meta_scope: meta.tag.style.begin.html
-    - include: style-common
     - match: '>'
       scope: punctuation.definition.tag.end.html
       set: style-css-content
+    - include: style-common
 
   style-css-content:
     # for compatibility with ST builds before 4114
@@ -424,8 +424,8 @@ contexts:
 
   template-mustache:
     - meta_scope: meta.tag.template.begin.html
-    - include: template-common
     - include: tag-end
+    - include: template-common
 
   template-lang-attribute:
     - match: (?i:lang){{attribute_name_break}}
