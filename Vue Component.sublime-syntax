@@ -557,18 +557,17 @@ contexts:
 
   mustache-interpolation-content:
     - clear_scopes: 1
-    - meta_scope: meta.interpolation.vue
     - include: mustache-templates
     - include: immediately-pop
 
   mustache-templates:
     - match: '{{'
-      scope: meta.template.vue punctuation.definition.template.begin.html
+      scope: meta.interpolation.vue punctuation.definition.interpolation.begin.html
       embed: scope:source.js
-      embed_scope: meta.template.vue source.js.embedded.vue
+      embed_scope: meta.interpolation.vue source.js.embedded.vue
       escape: '}}'
       escape_captures:
-        0: meta.template.vue punctuation.definition.template.end.html
+        0: meta.interpolation.vue punctuation.definition.interpolation.end.html
 
 ###[ VUE DIRECTIVES ]#########################################################
 
