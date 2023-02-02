@@ -11,6 +11,26 @@ file_extensions:
   - vue
 
 variables:
+  javascript_mime_type: |-
+    (?xi:
+      (?:
+      # default JS MIME types
+      # https://mimesniff.spec.whatwg.org/#javascript-mime-type
+        (?:application|text)/(?:x-)?(?:java|ecma)script
+      | text/javascript1\.[0-5]
+      | text/jscript
+      | text/livescript
+      # non-standard JS MIME types
+      | text/babel
+      )
+      {{mime_type_parameters}}?
+    )
+
+  # A MIME type’s parameters is an ordered map whose keys are ASCII strings and values are strings
+  # limited to HTTP quoted-string token code points. It is initially empty.
+  # Note: for backward compatibility with ST <4135
+  mime_type_parameters: (?:;.*?)
+
   # Embedded script and style syntaxes may be wrapped into html comments for
   # historical reasons. The following patterns match them, while maintaining
   # correct boundaries of embedded source scopes. That's required to enable

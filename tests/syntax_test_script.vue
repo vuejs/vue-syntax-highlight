@@ -132,6 +132,10 @@
 // ^ source.js.embedded.html - source source
 //  ^^^^^^^^^ meta.tag - source
 
+    <script type="text/babel">var foo</script>
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.script.begin.html
+//                            ^^^^^^^ source.js.embedded.html
+//                                   ^^^^^^^^^ meta.tag.script.end.html
 
     <script lang="coffee">  </script>
 //  ^^^^^^^^^^^^^^^^^^^^^^ meta.tag - meta.tag meta.tag - source
