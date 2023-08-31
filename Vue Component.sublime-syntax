@@ -131,6 +131,48 @@ contexts:
     - include: script-lang-decider
 
   script-lang-decider:
+    - match: (?i)(?=jsx{{unquoted_attribute_break}}|\'jsx\'|"jsx")
+      set:
+        -   - meta_scope: meta.tag.script.begin.html
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - match: '{{script_content_begin}}'
+                  embed_scope: source.jsx.embedded.html
+                  escape_captures:
+                    1: source.jsx.embedded.html
+                    2: comment.block.html punctuation.definition.comment.end.html
+                    3: source.jsx.embedded.html
+                    4: comment.block.html punctuation.definition.comment.end.html
+                  captures:
+                    1: comment.block.html punctuation.definition.comment.begin.html
+                  pop: 1
+                  embed: scope:source.jsx
+                  escape: '{{script_content_end}}'
+            - include: script-common
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+    - match: (?i)(?=tsx{{unquoted_attribute_break}}|\'tsx\'|"tsx")
+      set:
+        -   - meta_scope: meta.tag.script.begin.html
+            - match: '>'
+              scope: punctuation.definition.tag.end.html
+              set:
+                - match: '{{script_content_begin}}'
+                  embed_scope: source.tsx.embedded.html
+                  escape_captures:
+                    1: source.tsx.embedded.html
+                    2: comment.block.html punctuation.definition.comment.end.html
+                    3: source.tsx.embedded.html
+                    4: comment.block.html punctuation.definition.comment.end.html
+                  captures:
+                    1: comment.block.html punctuation.definition.comment.begin.html
+                  pop: 1
+                  embed: scope:source.tsx
+                  escape: '{{script_content_end}}'
+            - include: script-common
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
     - match: (?i)(?=coffee{{unquoted_attribute_break}}|\'coffee\'|"coffee")
       set:
         -   - meta_scope: meta.tag.script.begin.html

@@ -26,6 +26,17 @@ The `<script>` block uses the syntax highlighting currently active for you norma
 
 2. Explicitly disable Sublime's default `JavaScript` package. This allows the Babel package to be applied the embedded `<script>` in `*.vue` files. You may need to restart Sublime for this to take effect.
 
+you can also include the lang attribute inside the `<script>` tag. 
+```vue
+<script lang="jsx">
+export default {
+  render () {
+    return <div>{ this.foo }</div>
+  }
+}
+</script>
+```
+
 ### Development
 
 - The development of this syntax relies on the [YAML-Macros](https://github.com/Thom1729/YAML-Macros) package. You can install it from Package Control.

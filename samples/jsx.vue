@@ -1,6 +1,6 @@
 <!-- See JSX section in README -->
 
-<script>
+<script lang="jsx">
 export default {
   render () {
     return <div>{ this.foo }</div>
