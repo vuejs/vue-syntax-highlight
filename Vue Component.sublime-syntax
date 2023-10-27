@@ -562,12 +562,12 @@ contexts:
 
   mustache-templates:
     - match: '{{'
-      scope: meta.interpolation.vue punctuation.definition.interpolation.begin.html
+      scope: meta.interpolation.vue punctuation.section.interpolation.begin.html
       embed: scope:source.js
       embed_scope: meta.interpolation.vue source.js.embedded.vue
       escape: '}}'
       escape_captures:
-        0: meta.interpolation.vue punctuation.definition.interpolation.end.html
+        0: meta.interpolation.vue punctuation.section.interpolation.end.html
 
 ###[ VUE DIRECTIVES ]#########################################################
 
@@ -628,5 +628,5 @@ contexts:
       embed_scope: meta.interpolation.vue source.js.embedded.vue
       escape: \]
       escape_captures:
-        0: meta.interpolation.vue punctuation.definition.interpolation.end.vue
+        0: meta.interpolation.vue punctuation.section.interpolation.end.vue
     - include: immediately-pop

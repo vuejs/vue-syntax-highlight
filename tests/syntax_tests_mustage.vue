@@ -2,24 +2,24 @@
 
     <h1> {{ foo.text }} </h1>
 //       ^^^^^^^^^^^^^^ meta.interpolation.vue
-//       ^^ punctuation.definition.interpolation.begin.html
+//       ^^ punctuation.section.interpolation.begin.html
 //         ^^^^^^^^^^ source.js.embedded.vue
-//                   ^^ punctuation.definition.interpolation.end.html
+//                   ^^ punctuation.section.interpolation.end.html
 
     <p {{foo.attrib}}>
 //     ^^^^^^^^^^^^^^ meta.interpolation.vue
-//     ^^ punctuation.definition.interpolation.begin.html
+//     ^^ punctuation.section.interpolation.begin.html
 //       ^^^^^^^^^^ source.js.embedded.vue
-//                 ^^ punctuation.definition.interpolation.end.html
+//                 ^^ punctuation.section.interpolation.end.html
 
     <p attrib="{{ foo.value }}" >
 //            ^ meta.tag meta.attribute-with-value.html meta.string.html - meta.interpolation
 //             ^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.html meta.string.html meta.interpolation.vue
 //                            ^ meta.tag meta.attribute-with-value.html meta.string.html - meta.interpolation
 //            ^ string.quoted.double.html punctuation.definition.string.begin.html
-//             ^^ punctuation.definition.interpolation.begin.html - source.js
+//             ^^ punctuation.section.interpolation.begin.html - source.js
 //               ^^^^^^^^^^^ source.js.embedded.vue
-//                          ^^ punctuation.definition.interpolation.end.html - source.js
+//                          ^^ punctuation.section.interpolation.end.html - source.js
 //                            ^ string.quoted.double.html punctuation.definition.string.end.html
 
     <p attrib='{{ foo.value }}' >
@@ -27,16 +27,16 @@
 //             ^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.html meta.string.html meta.interpolation.vue
 //                            ^ meta.tag meta.attribute-with-value.html meta.string.html - meta.interpolation
 //            ^ string.quoted.single.html punctuation.definition.string.begin.html
-//             ^^ punctuation.definition.interpolation.begin.html - source.js
+//             ^^ punctuation.section.interpolation.begin.html - source.js
 //               ^^^^^^^^^^^ source.js.embedded.vue
-//                          ^^ punctuation.definition.interpolation.end.html - source.js
+//                          ^^ punctuation.section.interpolation.end.html - source.js
 //                            ^ string.quoted.single.html punctuation.definition.string.end.html
 
     <p attrib={{ foo.value }} >
 //            ^^^^^^^^^^^^^^^ meta.tag meta.attribute-with-value.html meta.string.html meta.interpolation.vue
-//            ^^ punctuation.definition.interpolation.begin.html - source.js
+//            ^^ punctuation.section.interpolation.begin.html - source.js
 //              ^^^^^^^^^^^ source.js.embedded.vue
-//                         ^^ punctuation.definition.interpolation.end.html - source.js
+//                         ^^ punctuation.section.interpolation.end.html - source.js
 
     <p v-attrib="{'key': 'value'}">
 //  ^^^ meta.tag - meta.attribute-with-value
@@ -130,7 +130,7 @@
 //            ^ entity.other.attribute-name.html
 //             ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //              ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                   ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
+//                                   ^ meta.interpolation.vue punctuation.section.interpolation.end.vue - source.js.embedded
 //                                    ^ meta.tag - meta.attribute-with-value
 //                                     ^ - meta.tag
 
@@ -139,7 +139,7 @@
 //            ^^^^^^^ entity.other.attribute-name.html
 //                   ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //                    ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                         ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
+//                                         ^ meta.interpolation.vue punctuation.section.interpolation.end.vue - source.js.embedded
 //                                          ^ meta.tag - meta.interpolation
 //                                           ^ meta.tag - meta.attribute-with-value
 //                                            ^ - meta.tag
