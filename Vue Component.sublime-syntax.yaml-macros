@@ -401,5 +401,5 @@ contexts:
       embed_scope: meta.interpolation.vue source.js.embedded.vue
       escape: \]
       escape_captures:
-        0: meta.interpolation.vue punctuation.definition.interpolation.end.vue
+        0: meta.interpolation.vue punctuation.section.interpolation.end.vue
     - include: immediately-pop

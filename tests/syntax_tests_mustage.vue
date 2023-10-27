@@ -130,7 +130,7 @@
 //            ^ entity.other.attribute-name.html
 //             ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //              ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                   ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
+//                                   ^ meta.interpolation.vue punctuation.section.interpolation.end.vue - source.js.embedded
 //                                    ^ meta.tag - meta.attribute-with-value
 //                                     ^ - meta.tag
 
@@ -139,7 +139,7 @@
 //            ^^^^^^^ entity.other.attribute-name.html
 //                   ^ meta.interpolation.vue punctuation.section.interpolation.begin.vue - source.js.embedded
 //                    ^^^^^^^^^^^^^^^^^^^^^ meta.interpolation.vue source.js.embedded.vue - entity.other.attribute-name.html
-//                                         ^ meta.interpolation.vue punctuation.definition.interpolation.end.vue - source.js.embedded
+//                                         ^ meta.interpolation.vue punctuation.section.interpolation.end.vue - source.js.embedded
 //                                          ^ meta.tag - meta.interpolation
 //                                           ^ meta.tag - meta.attribute-with-value
 //                                            ^ - meta.tag
