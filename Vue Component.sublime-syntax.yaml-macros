@@ -132,6 +132,8 @@ contexts:
     - include: script-lang-decider
 
   script-lang-decider:
+    - !script_language [ jsx, source.jsx ]
+    - !script_language [ tsx, source.tsx ]
     - !script_language [ coffee, source.coffee ]
     - !script_language [ livescript, source.livescript ]
     - !script_language [ ts, source.ts ]
