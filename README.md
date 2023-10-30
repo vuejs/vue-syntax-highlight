@@ -20,13 +20,8 @@ Sublime Text Syntax highlighting for single-file [Vue.js](http://vuejs.org) comp
 
 ### Enabling JSX Highlighting
 
-The `<script>` block uses the syntax highlighting currently active for you normal `.js` files. To support JSX highlighting inside Vue files:
+The `<script>` block uses the syntax highlighting currently active for you normal `.js` files. To support JSX highlighting inside Vue files, include the lang attribute inside the `<script>` tag. 
 
-1. Install and set [Babel javascript highlighting package](https://packagecontrol.io/packages/Babel), which supports JSX, as your default JS highlighting.
-
-2. Explicitly disable Sublime's default `JavaScript` package. This allows the Babel package to be applied the embedded `<script>` in `*.vue` files. You may need to restart Sublime for this to take effect.
-
-you can also include the lang attribute inside the `<script>` tag. 
 ```vue
 <script lang="jsx">
 export default {
@@ -36,6 +31,12 @@ export default {
 }
 </script>
 ```
+
+If `lang="jsx"` doesn't work, you can try the alternative.
+
+1. Install and set [Babel javascript highlighting package](https://packagecontrol.io/packages/Babel), which supports JSX, as your default JS highlighting.
+
+2. Explicitly disable Sublime's default `JavaScript` package. This allows the Babel package to be applied the embedded `<script>` in `*.vue` files. You may need to restart Sublime for this to take effect.
 
 ### Development
 
